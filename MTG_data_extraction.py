@@ -8,7 +8,7 @@ import pymongo
 from pymongo import MongoClient
 import requests
 from PIL import Image
-
+import json
 
 def image_from_bytes(input):
     image_data = input
@@ -52,7 +52,6 @@ def tcg_return_price():
 
 def ck_return_price(mtgcard):
     ##need to figure out how not be a bot
-    url
     cardkingdom1=urllib.request.urlretrieve("https://www.cardkingdom.com/catalog/search?search=header&filter%5Bname%5D=Teferi%27s+Care&ac=1")
 
 def parse_set(mtgset):
@@ -76,9 +75,6 @@ def parse_set(mtgset):
     return(post)
 
 def parse_card(mtgcard):
-
-
-    card_properties= ['name','multiverse_id','layout','names','mana_cost','cmc','colors','color_identity','type','supertypes','subtypes','rarity','text','flavor','artist','number','power','toughness','loyalty','variations','watermark','border','timeshifted','hand','life','reserved','release_date','starter','rulings','foreign_names','printings','original_text','original_type','legalities','source','image_url','set','set_name','id']
 
     post = {"name": mtgcard.name,
             "multiverse_id": mtgcard.multiverse_id,
@@ -115,7 +111,7 @@ def parse_card(mtgcard):
             "original_type": mtgcard.original_type,
             "legalities": mtgcard.legalities,
             "source": mtgcard.source,
-            "image": str(get_card_image(mtgcard.image_url)),
+            "image": mtgcard.image_url,
             "set": mtgcard.set,
             "set_name": mtgcard.set_name,
             "id": mtgcard.id,
@@ -123,10 +119,22 @@ def parse_card(mtgcard):
 
     return(post)
 
-def insert_to_collection(db,cards):
+def insert_firebase(cards):
     try:
         for i in cards:
-                db.posts.insert_one(parse_card(i))
+                card=parse_card(i)
+                name=card['name']
+                r=requests.put('https://mtggame-b3e32.firebaseio.com/cards/'+name+'.json',json.dumps(card))
+                #print(r)    
+    except:
+        raise
+    return()
+
+def insert_to_mongo_collection(db,cards):
+    try:
+        for i in cards:
+                card=parse_card(i)
+                db.posts.insert_one(card)
     except:
         raise
     return()
@@ -145,7 +153,24 @@ if __name__ == "__main__":
     ####GET ALL CARDS FROM MTGDSK API
         #cards=Card.all()
         #cards=SET.all()
+##connect to local db
     client = MongoClient('localhost', 27017)
+
     db = client['MTG_CARDS']
     collection=db.posts
+###upload all card from mtgsdk and inser to database
+    cards = Card.all()
+    #cards = Card.where(set='ktk').where(subtypes='warrior,human').all()
+    insert_to_mongo_collection(collection,cards)
+    insert_firebase(cards)
+###create a new deck from a file
+
+###add card to collection
+
+##### remove cards from a collection
+
+
     card = get_card(collection,'Chivalrous Chevalier')
+
+
+
