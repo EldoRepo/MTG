@@ -7,24 +7,31 @@ from mtgsdk import Changelog
 import pymongo
 from pymongo import MongoClient
 import requests
+from PIL import Image
 
-def get_card(db,card_name):
-    
+
+def image_from_bytes(input):
+    image_data = input
+    image = Image.frombytes('RGBA', (226,311), image_data)
+    image.show()
+    return()
+
+def get_card(collection,card_name):
+    card=collection.find_one({'name': card_name})
     return card
 
-def get_collection(collection_id):
+def get_collection(db,collection_id):
+    collection = db[collection_id]
+    return(collection)
+
+def add_card_to_collection():
+
     return()
 
-def add_card():
+def create_collection(collection_config, collection_name):
     return()
-
 def remove_card():
     return()
-
-def generate_url(mutliverseid):
-    url='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid='
-    url=url+str(multiverseid)+str('&type=card')
-    return url
 
 def get_card_image(url):
     try:
@@ -34,7 +41,7 @@ def get_card_image(url):
         pass
     return image
 
-#waitnign on applciaiton for developer
+#waiting on applciaiton for developer
 def tcg_return_price():
 
     url = "http://api.tcgplayer.com/v1.5.0/catalog/categories"
@@ -116,11 +123,29 @@ def parse_card(mtgcard):
 
     return(post)
 
+def insert_to_collection(db,cards):
+    try:
+        for i in cards:
+                db.posts.insert_one(parse_card(i))
+    except:
+        raise
+    return()
 
-#cards=Card.all()
-def insert_cards(cards):
-for i in cards:
-        dbcards.posts.insert_one(parse_card(i))
+def insert_sets(db):
+    try:
+        for j in set:
+            dbsets.posts.insert_one(parse_set(j))
+    except:
+        raise
+    return()
 
-#for j in set:
-#        dbsets.posts.insert_one(parse_set(j))
+
+if __name__ == "__main__":
+
+    ####GET ALL CARDS FROM MTGDSK API
+        #cards=Card.all()
+        #cards=SET.all()
+    client = MongoClient('localhost', 27017)
+    db = client['MTG_CARDS']
+    collection=db.posts
+    card = get_card(collection,'Chivalrous Chevalier')
