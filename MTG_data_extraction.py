@@ -7,41 +7,74 @@ from mtgsdk import Changelog
 import pymongo
 from pymongo import MongoClient
 import requests
-from PIL import Image
 import json
+import bson
+import urllib3 as urllib
 
-def image_from_bytes(input):
-    image_data = input
-    image = Image.frombytes('RGBA', (226,311), image_data)
-    image.show()
-    return()
 
-def get_card(collection,card_name):
-    card=collection.find_one({'name': card_name})
-    return card
+########functions retrieving data from mongodb
+
+def get_card_by_field(collection,field,value):
+        card=collection.find_one({field:value})
+        return(card)
 
 def get_collection(db,collection_id):
-    collection = db[collection_id]
+        collection = db[collection_id]
+        return(collection)
+
+##### function for sending data to firebase
+
+def add_gameplay_properties(collection):
+    libraryid=str(bson.objectid.ObjectId())
+    for i in collection:
+        i['libraryid']=libraryid
+        i['uid']= str(bson.objectid.ObjectId())
+        i['location']=0
+        i['tapped']=False
+        i['counter']=0
+        i['flipped']=False
     return(collection)
 
-def add_card_to_collection():
+def clean_collection(collection):
+    for i in collection:
+        remove=['_id','artist','supertypes','multiverse_id','layout','names','variations','watermark','border','timeshifted','hand','release_date','starter','foreign_names','printings','original_text','original_type','legalities','source','id']
+        for prop in remove:
+            #del card[prop]
+            i.pop(prop)
+    return(collection)
+
+def serve_firebase(collection):
+    try:
+        for card in collection:
+            r=requests.put('https://mtggame-b3e32.firebaseio.com/cards/'+str(card['uid'])+'.json',json.dumps(card))
+            #print(r)    
+    except:
+        raise
+    return()
+
+
+
+
+#functions for creating decks, adding and removing cards
+
+def create_collection(collection_config,masterdb,targetdb):
+    
+    for card_name in collection_config:
+            card=get_card_by_field(masterdb,'name',card_name)
+            for n in range(collection_config[card_name]):
+                card["_id"]=bson.objectid.ObjectId()
+                add_card_to_collection(targetdb,card)
 
     return()
 
-def create_collection(collection_config, collection_name):
-    return()
+
 def remove_card():
     return()
+def add_card_to_collection(db,card):
+    db.insert_one(card)
+    return()
 
-def get_card_image(url):
-    try:
-        image=requests.get(url).content
-    except:
-        image=None
-        pass
-    return image
-
-#waiting on applciaiton for developer
+####functions for getting pricing data
 def tcg_return_price():
 
     url = "http://api.tcgplayer.com/v1.5.0/catalog/categories"
@@ -53,6 +86,8 @@ def tcg_return_price():
 def ck_return_price(mtgcard):
     ##need to figure out how not be a bot
     cardkingdom1=urllib.request.urlretrieve("https://www.cardkingdom.com/catalog/search?search=header&filter%5Bname%5D=Teferi%27s+Care&ac=1")
+
+###functions for pasing raw data from mtgsdk
 
 def parse_set(mtgset):
     set_properties= ['code','name','gatherer_code','old_code','magic_cards_info_code','release_date',
@@ -134,7 +169,7 @@ def insert_to_mongo_collection(db,cards):
     try:
         for i in cards:
                 card=parse_card(i)
-                db.posts.insert_one(card)
+                db.insert_one(card)
     except:
         raise
     return()
@@ -148,6 +183,12 @@ def insert_sets(db):
     return()
 
 
+###### passing collections from mongodb to firebase
+
+
+
+
+
 if __name__ == "__main__":
 
     ####GET ALL CARDS FROM MTGDSK API
@@ -155,22 +196,29 @@ if __name__ == "__main__":
         #cards=SET.all()
 ##connect to local db
     client = MongoClient('localhost', 27017)
-
-    db = client['MTG_CARDS']
-    collection=db.posts
+    masterdb = client['MTG_CARDS'].cards
+    targetdb=client['MTG_CARDS'].test_deck
 ###upload all card from mtgsdk and inser to database
-    cards = Card.all()
+    #cards = Card.all()
     #cards = Card.where(set='ktk').where(subtypes='warrior,human').all()
-    insert_to_mongo_collection(collection,cards)
-    insert_firebase(cards)
-###create a new deck from a file
+    #insert_to_mongo_collection(masterdb,cards)
+   # insert_firebase(cards)
+    #card = get_card(collection,'Chivalrous Chevalier')
+    collection_config={
 
-###add card to collection
+            'Sen Triplets':1,
+            'Swamp':20,
+            'Island':20,
+            'Plains':20,
+    }
 
-##### remove cards from a collection
 
+#create_collection(collection_config,masterdb,targetdb)
+decklist=[]
+for i in targetdb.find():
+        decklist.append(i)
 
-    card = get_card(collection,'Chivalrous Chevalier')
-
-
+mydeck=clean_collection(decklist)
+mydeck=add_gameplay_properties(decklist)
+serve_firebase(mydeck)
 
