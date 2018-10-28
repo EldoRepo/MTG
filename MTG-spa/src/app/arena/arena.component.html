@@ -1,101 +1,98 @@
-<h2>Creatures</h2>
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let card of creaturesTwo" cdkDrag>
-        <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:100px;">
-    </div>
-</div>
-<h2>Items / Enchantments</h2>
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-  <div class="example-box" *ngFor="let card of enchantmentsTwo" cdkDrag>
-      <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:100px;">
-  </div>
-</div>
-<h2>Lands</h2>
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let card of landsTwo" cdkDrag>
-        <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:100px;">
-    </div>
-</div>
-<h2>Hand</h2>
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let card of handTwo" cdkDrag>
-        <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:100px;">
-    </div>
-</div>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
-
-<mat-grid-list cols="4" rowHeight="100px">
-    <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'#DDBDF1'">
-        <i>Discard</i> 
-      </mat-grid-tile>  
-      <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="">
-          <i>Hand</i> 
-      </mat-grid-tile>  
-  <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="'lightgreen'">
-        <i>Land Cards</i> 
-      </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'lightblue'">
-        <i>Libary</i>
-        <img mat-card-image src="/MTG-spa/src/assets/images/mtgDeck.jpg" alt="Photo of a Card">
-      </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="'lightblue'">
-  <i>Items and Enchantments</i> 
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="'lightpink'">
-      <i>Creatures</i>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <hr>
-  <hr>
-<mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="'lightpink'">
-   <i>Creatures</i>
-   <div *ngFor="let card of creaturesTwo" cdkDrag>
-      <div (click)="moveCard(card, 2)">
-        <img mat-card-image [src]="card.image" alt="Photo of a Card">
-      </div>
-   </div>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'lightblue'">
-   <i>Libary</i>
-   <div *ngFor="let card of libraryTwo">
-      <div (click)="moveCard(card, 2)">
-        <img mat-card-image [src]="card.image" alt="Photo of a Card">
-      </div>
-   </div>
-</mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="'lightblue'">
-  <i>Items and Enchantments</i> 
-  <div *ngFor="let card of enchantmentsTwo" cdkDrag (click)="moveCard(card, 2)">
-      <img mat-card-image [src]="card.image" alt="Photo of a Card">
-   </div>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="'lightgreen'">
-    <i>Land Cards</i> 
-    <div *ngFor="let card of landsTwo">
-        <div (click)="moveCard(card, 2)">
-          <img mat-card-image [src]="card.image" alt="Photo of a Card">
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <div fxFlex="20%">
+        <div style='width:200px;height:200px;' [style.background]="'lightblue'">
+            <div><h1>{{ opponentPlayer?.currentLife }}</h1></div>
+            <h2>Library</h2> 
+            <button mat-button (click)="viewCards(2)">View Cards</button>
+            <i>count: {{ libraryTwo?.length }}</i>
         </div>
-     </div>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'#DDBDF1'">
-    <i>Discard</i> 
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="">
-      <i>Hand</i> 
-      <div *ngFor="let card of handTwo">
-          <div (click)="moveCard(card, 2)">
-            <img mat-card-image [src]="card.image" alt="Photo of a Card">
-          </div>
-       </div>
-  </mat-grid-tile>
-</mat-grid-list>
-<img src="/MTG-spa/src/assets/images/asdf.jpg" alt="Photo of a Card">
+        <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'">
+            <h2>Discard</h2>
+            <i>count: {{ discardTwo?.length }}</i>
+        </div>
+    </div>
+    <div fxFlex="80%">
+        <div cdkDropList #handTwoZone="cdkDropList" [cdkDropListData]="handTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, landsTwoZone]" 
+        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
+        style="overflow-x:scroll;"> 
+            <div *ngFor="let card of handTwo" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+            </div>
+        </div>
+        <div cdkDropList #landsTwoZone="cdkDropList" [cdkDropListData]="landsTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, handTwoZone]" 
+        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
+        [style.background]="'lightgreen'" [ngClass]="isScroll(3) > 10 ? 'mtgScrollRow' : ''">
+            <div *ngFor="let card of landsTwo" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+            </div>
+        </div>
+        <div cdkDropList #enchantmentsTwoZone="cdkDropList" [cdkDropListData]="enchantmentsTwo" [cdkDropListConnectedTo]="[creaturesTwoZone, handTwoZone, landsTwoZone]"
+        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
+        [style.background]="'lightblue'" style="overflow-x:scroll;">
+        <div *ngFor="let card of enchantmentsTwo" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+            <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+        </div>
+        </div>
+        <div cdkDropList #creaturesTwoZone="cdkDropList" [cdkDropListData]="creaturesTwo" [cdkDropListConnectedTo]="[enchantmentsTwoZone, handTwoZone, landsTwoZone]" 
+        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:scroll;">
+            <div *ngFor="let card of creaturesTwo" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+        <div fxFlex="80%">
+            <div cdkDropList #creaturesOneZone="cdkDropList" [cdkDropListData]="creaturesOne" [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, landsOneZone]" 
+            cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:scroll;">
+                <div *ngFor="let card of creaturesOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                    <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                </div>
+            </div>
+            <div cdkDropList #enchantmentsOneZone="cdkDropList" [cdkDropListData]="enchantmentsOne" [cdkDropListConnectedTo]="[creaturesOneZone, handOneZone, landsOneZone]"
+                cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
+            [style.background]="'lightblue'" style="overflow-x:scroll;">
+            <div *ngFor="let card of enchantmentsOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+            </div>
+            </div>
+            <div cdkDropList #landsOneZone="cdkDropList" [cdkDropListData]="landsOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, handOneZone]" 
+            cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
+            [style.background]="'lightgreen'" [ngClass]="isScroll(3) > 10 ? 'mtgScrollRow' : ''">
+                <div *ngFor="let card of landsOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                    <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                </div>
+            </div>
+            <!-- <h2>Hand</h2> -->
+            <div cdkDropList #handOneZone="cdkDropList" [cdkDropListData]="handOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, landsOneZone]" 
+            cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
+            style="overflow-x:scroll;"> 
+                <div *ngFor="let card of handOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                    <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                </div>
+            </div>
+        </div>
+        <div fxFlex="20%">
+            <mat-select placeholder="Select Library" (selectionChange)="changeLibrary($event.value)">
+                <mat-option [value]=""> <!--*ngFor="let food of foods"-->
+                    PlayerOne
+                </mat-option>
+                <mat-option [value]=""> <!--*ngFor="let food of foods"-->
+                    PlayerTwo
+                </mat-option>
+            </mat-select>
+            <div><h1>{{ currentPlayer?.currentLife }}</h1></div>
+            <div style='width:200px;height:200px;' [style.background]="'lightblue'">
+                <h2>Library</h2> 
+                <button mat-button (click)="viewCards(1)">View Cards</button>
+                <button mat-button (click)="drawCard()">Draw Card</button>
+                <i>count: {{ libraryOne?.length }}</i>
+            </div>
+            <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'">
+                <h2>Discard</h2>
+                <i>count: {{ discardOne?.length }}</i>
+            </div>
+        </div>
+    </div>

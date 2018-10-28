@@ -1,0 +1,39 @@
+<!-- <mat-list>
+  <mat-list-item *ngFor="let card of cards">
+    <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
+  </mat-list-item>
+</mat-list> -->
+<h2>Viewing Library</h2>
+<hr/>
+<mat-form-field>
+  <mat-select placeholder="Options">
+    <mat-option [value]="food.value">
+      Do Nothing
+    </mat-option>
+    <mat-option [value]="food.value">
+      Move To Hand
+    </mat-option>
+    <mat-option [value]="food.value">
+      Move To Discard
+    </mat-option>
+    <mat-option [value]="food.value">
+      Move To Creatures
+    </mat-option>
+    <mat-option [value]="food.value">
+      Move To Items / Enchantments
+    </mat-option>
+    <mat-option [value]="food.value">
+      Move To Opponents Field
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<hr/>
+<div *ngFor="let card of cards">
+    <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
+    <mat-form-field>
+      <button mat-button (click)="execute(card)">Execute</button>
+    </mat-form-field>
+</div>
+
+
+

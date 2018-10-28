@@ -10,7 +10,10 @@ import {
   MatIconModule,
   MatCardModule,
   MatDialogModule,
-  MatGridListModule
+  MatGridListModule,
+  MatSelectModule,
+  MatListModule,
+  MatBadgeModule
 } from '@angular/material';
 
 @NgModule({
@@ -24,7 +27,10 @@ import {
     MatDialogModule,
     ScrollingModule,
     ScrollDispatchModule,
-    DragDropModule
+    DragDropModule,
+    MatSelectModule,
+    MatListModule,
+    MatBadgeModule
   ],
   exports: [
     MatButtonModule,
@@ -36,7 +42,10 @@ import {
     MatDialogModule,
     ScrollingModule,
     ScrollDispatchModule,
-    DragDropModule
+    DragDropModule,
+    MatSelectModule,
+    MatListModule,
+    MatBadgeModule
   ]
 })
 export class CustomMaterialModule {}

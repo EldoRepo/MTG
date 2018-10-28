@@ -6,3 +6,6 @@
     -webkit-transform: rotate(20deg); /* Safari */
     transform: rotate(20deg); /* Standard syntax */
 }
+.mtgScrollRow {
+    overflow-x:scroll;
+}
