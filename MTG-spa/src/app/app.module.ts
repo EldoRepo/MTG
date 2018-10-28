@@ -9,6 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { firebaseConfig } from './firebase.config';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -26,8 +30,12 @@ import { appRoutes } from './routes';
     CustomMaterialModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes, { useHash: true }),
+    AngularFireModule.initializeApp(firebaseConfig, 'MTGgame'),
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [
+    {provide: MatDialogRef, useValue: {}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

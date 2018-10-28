@@ -11,5 +11,5 @@ export const appRoutes: Routes = [
       path: 'library',
       component: CardlibraryComponent
     },
-    { path: '', component: CardlibraryComponent },
+    { path: '', component: ArenaComponent },
   ];

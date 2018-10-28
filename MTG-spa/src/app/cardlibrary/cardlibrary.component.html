@@ -1,24 +1,25 @@
+<h1>Card Library</h1>
+<!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+    <div *cdkVirtualFor="let card of cards" class="example-item">{{card.name}}</div>
+  </cdk-virtual-scroll-viewport> -->
 
-
-<mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile *ngFor="let card of library" [colspan]="1" [rowspan]="1">
-    <mat-card class="example-card">
+<mat-grid-list cols="5" rowHeight="1:2">
+  <mat-grid-tile *ngFor="let card of cards" [colspan]="1" [rowspan]="1">
+    <mat-card class="example-card" (click)="viewCard(card)">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <mat-card-title>{{card.name}}</mat-card-title>
+        <mat-card-subtitle>subtitle</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <img mat-card-image [src]="card.image" alt="Photo of a Card">
       <mat-card-content>
         <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
+          card.description
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+        <button mat-button>ADD</button>
+        <button mat-button>DELETE</button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>

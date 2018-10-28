@@ -1,3 +1,11 @@
-<p>
-  view-card works!
-</p>
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{card.name}}</mat-card-title>
+      <mat-card-subtitle>subtitle</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
+    <mat-card-content>
+      <p></p>
+    </mat-card-content>
+  </mat-card>

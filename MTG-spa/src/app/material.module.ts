@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import {
   MatButtonModule,
@@ -6,6 +9,7 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatCardModule,
+  MatDialogModule,
   MatGridListModule
 } from '@angular/material';
 
@@ -16,7 +20,11 @@ import {
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
+    ScrollingModule,
+    ScrollDispatchModule,
+    DragDropModule
   ],
   exports: [
     MatButtonModule,
@@ -24,7 +32,11 @@ import {
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
+    ScrollingModule,
+    ScrollDispatchModule,
+    DragDropModule
   ]
 })
 export class CustomMaterialModule {}
