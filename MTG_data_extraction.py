@@ -55,7 +55,19 @@ def serve_firebase(collection):
 
 
 
-#functions for creating decks, adding and removing cards
+def create_game(decks):
+    game=dict()
+    gameid=str(bson.objectid.ObjectId())
+    gameproperties=[gameid,'p1_life','p2_life','turn_possesion','turn_count']
+    try:
+        for collection in decks:
+            for card in collection:
+                requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/cards/'+str(card['uid'])+'.json',json.dumps(card))
+    except:
+        raise
+    return()
+
+#######functions for creating decks, adding and removing cards
 
 def create_collection(collection_config,masterdb,targetdb):
     
@@ -186,39 +198,36 @@ def insert_sets(db):
 ###### passing collections from mongodb to firebase
 
 
-
-
-
-if __name__ == "__main__":
+#if __name__ == "__main__":
 
     ####GET ALL CARDS FROM MTGDSK API
         #cards=Card.all()
         #cards=SET.all()
 ##connect to local db
-    client = MongoClient('localhost', 27017)
-    masterdb = client['MTG_CARDS'].cards
-    targetdb=client['MTG_CARDS'].test_deck
+ #   client = MongoClient('localhost', 27017)
+ #   masterdb = client['MTG_CARDS'].cards
+  #  targetdb=client['MTG_CARDS'].test_deck
 ###upload all card from mtgsdk and inser to database
     #cards = Card.all()
     #cards = Card.where(set='ktk').where(subtypes='warrior,human').all()
     #insert_to_mongo_collection(masterdb,cards)
    # insert_firebase(cards)
     #card = get_card(collection,'Chivalrous Chevalier')
-    collection_config={
+   # collection_config={
 
-            'Sen Triplets':1,
-            'Swamp':20,
-            'Island':20,
-            'Plains':20,
-    }
+    #        'Sen Triplets':1,
+     #       'Swamp':20,
+      #      'Island':20,
+       #     'Plains':20,
+    #}
 
 
 #create_collection(collection_config,masterdb,targetdb)
-decklist=[]
-for i in targetdb.find():
-        decklist.append(i)
+#decklist=[]
+#for i in targetdb.find():
+#        decklist.append(i)
 
-mydeck=clean_collection(decklist)
-mydeck=add_gameplay_properties(decklist)
-serve_firebase(mydeck)
+#mydeck=clean_collection(decklist)
+#mydeck=add_gameplay_properties(decklist)
+#serve_firebase(mydeck)
 
