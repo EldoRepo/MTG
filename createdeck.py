@@ -100,4 +100,4 @@ if __name__ == "__main__":
 
     mydeck=MTG.clean_collection(decklist)
     mydeck=MTG.add_gameplay_properties(decklist)
-    MTG.serve_firebase(mydeck)
+    #MTG.serve_firebase(mydeck)

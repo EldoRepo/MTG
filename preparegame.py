@@ -21,12 +21,10 @@ if __name__ == "__main__":
     for i in targetdb.find():
             decklist1.append(i)
 
-    p1=MTG.clean_collection(decklist)
-    p1=MTG.add_gameplay_properties(decklist)
+    deck1=MTG.clean_collection(decklist)
+    deck1=MTG.add_gameplay_properties(decklist)
 
-    p2=MTG.clean_collection(decklist1)
-    p2=MTG.add_gameplay_properties(decklist1)
-
-    MTG.create_game([p1,p2])
-    #MTG.serve_firebase(p1)
+    deck2=MTG.clean_collection(decklist1)
+    deck2=MTG.add_gameplay_properties(decklist1)
+    MTG.create_game([deck1,deck2])
 

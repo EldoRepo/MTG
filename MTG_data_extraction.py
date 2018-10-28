@@ -58,32 +58,40 @@ def serve_firebase(collection):
 ###create player object####
 
 
-def create_game(decks):
-    game=dict()
-    gameid=str(bson.objectid.ObjectId())
+def createplayer(deck):
+    playerid=str(bson.objectid.ObjectId())
+    playerproperties={'playerid':playerid,
+                      'life':40,
+                      'poison_counters':0,
+                      'libraryid':deck[1]['libraryid']
+                    }
+    return(playerproperties)
 
+
+def create_game(decks):
+
+    gameid=str(bson.objectid.ObjectId())
     gameproperties={'gameid':gameid,
-                    'p1_life':40,
-                    'p2_life':40,
                     'turn_possesion':0,
                     'turn_count':0,
                     }
-
-#### create player objects
-##add library id
-## add player life to libraries
-
-
+### add library ids to game
     for i in range(len(decks)):
-        gameproperties['libraryid']=decks[i]['libraryid']
+        gameproperties['libraryid_'+str(i)]=decks[i][1]['libraryid']
+###create players 
+    count=1
+    for k in decks:
+        player=createplayer(k) 
+        gameproperties['playerid_'+str(count)]=player['playerid']
+        for card in k:
+                r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/Game/players/'+str(player['playerid'])+'/library/'+str(card['uid'])+'.json',json.dumps(card))
+        for playerproperty in player:
+            r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/Game/players/'+str(player['playerid'])+'/'+str(playerproperty)+'.json',json.dumps(player[playerproperty]))
+        count+=1
+###send game properties
     for j in gameproperties:
         r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/Game/'+str(j)+'.json',json.dumps(gameproperties[j]))
-    for i in range(len(decks)):
-        for collection in decks:
-            deckid=collection[1]
-            for card in collection:
-                r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/'+card['libraryid']+'/'+str(card['uid'])+'.json',json.dumps(card))
-    return(r)
+    return(gameid)
 
 #######functions for creating decks, adding and removing cards
 
