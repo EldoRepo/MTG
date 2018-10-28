@@ -12,13 +12,14 @@ if __name__ == "__main__":
     ##connect to local db
     client = MongoClient('localhost', 27017)
     targetdb=client['MTG_CARDS'].Leovold
+    target2db=client['MTG_CARDS'].Grenzo
 
     #create_collection(collection_config,masterdb,targetdb)
     decklist=[]
     decklist1=[]
     for i in targetdb.find():
             decklist.append(i)
-    for i in targetdb.find():
+    for i in target2db.find():
             decklist1.append(i)
 
     deck1=MTG.clean_collection(decklist)

@@ -57,7 +57,6 @@ def serve_firebase(collection):
 
 ###create player object####
 
-
 def createplayer(deck):
     playerid=str(bson.objectid.ObjectId())
     playerproperties={'playerid':playerid,
@@ -74,23 +73,24 @@ def create_game(decks):
     gameproperties={'gameid':gameid,
                     'turn_possesion':0,
                     'turn_count':0,
+                    'eventlogs':['game_start'],
                     }
-### add library ids to game
+    ### add library ids to game
     for i in range(len(decks)):
-        gameproperties['libraryid_'+str(i)]=decks[i][1]['libraryid']
-###create players 
+        gameproperties['libraryid_'+str(i+1)]=decks[i][1]['libraryid']
+    ###create players 
     count=1
     for k in decks:
         player=createplayer(k) 
         gameproperties['playerid_'+str(count)]=player['playerid']
         for card in k:
-                r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/Game/players/'+str(player['playerid'])+'/library/'+str(card['uid'])+'.json',json.dumps(card))
+                r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/players/'+str(player['playerid'])+'/library/'+str(card['uid'])+'.json',json.dumps(card))
         for playerproperty in player:
-            r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/Game/players/'+str(player['playerid'])+'/'+str(playerproperty)+'.json',json.dumps(player[playerproperty]))
+            r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/players/'+str(player['playerid'])+'/'+str(playerproperty)+'.json',json.dumps(player[playerproperty]))
         count+=1
-###send game properties
+    ###send game properties
     for j in gameproperties:
-        r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/Game/'+str(j)+'.json',json.dumps(gameproperties[j]))
+        r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/'+str(j)+'.json',json.dumps(gameproperties[j]))
     return(gameid)
 
 #######functions for creating decks, adding and removing cards
