@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { ArenaComponent } from './arena/arena.component';
 import { CardlibraryComponent } from './cardlibrary/cardlibrary.component';
 import { ViewCardComponent } from './dialogs/view-card/view-card.component';
-import { CustomMaterialModule } from './material.module';
+import { CustomMaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -13,16 +13,20 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { firebaseConfig } from './firebase.config';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ViewCardsComponent } from './dialogs/view-cards/view-cards.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArenaComponent,
     CardlibraryComponent,
-    ViewCardComponent
+    ViewCardComponent,
+    ViewCardsComponent
   ],
   entryComponents: [
-    ViewCardComponent
+    ViewCardComponent,
+    ViewCardsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
     HttpClientModule,
     RouterModule.forRoot(appRoutes, { useHash: true }),
     AngularFireModule.initializeApp(firebaseConfig, 'MTGgame'),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FlexLayoutModule
   ],
   providers: [
     {provide: MatDialogRef, useValue: {}}
