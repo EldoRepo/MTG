@@ -40,32 +40,50 @@ def clean_collection(collection):
         remove=['_id','artist','supertypes','multiverse_id','layout','names','variations','watermark','border','timeshifted','hand','release_date','starter','foreign_names','printings','original_text','original_type','legalities','source','id']
         for prop in remove:
             #del card[prop]
-            i.pop(prop)
+            try:
+                i.pop(prop)
+            except:
+                pass
     return(collection)
 
 def serve_firebase(collection):
     try:
         for card in collection:
-            r=requests.put('https://mtggame-b3e32.firebaseio.com/cards/'+str(card['uid'])+'.json',json.dumps(card))
-            #print(r)    
+            requests.put('https://mtggame-b3e32.firebaseio.com/cards/'+str(card['uid'])+'.json',json.dumps(card))
+                
     except:
         raise
     return()
 
-
+###create player object####
 
 
 def create_game(decks):
     game=dict()
     gameid=str(bson.objectid.ObjectId())
-    gameproperties=[gameid,'p1_life','p2_life','turn_possesion','turn_count']
-    try:
+
+    gameproperties={'gameid':gameid,
+                    'p1_life':40,
+                    'p2_life':40,
+                    'turn_possesion':0,
+                    'turn_count':0,
+                    }
+
+#### create player objects
+##add library id
+## add player life to libraries
+
+
+    for i in range(len(decks)):
+        gameproperties['libraryid']=decks[i]['libraryid']
+    for j in gameproperties:
+        r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/Game/'+str(j)+'.json',json.dumps(gameproperties[j]))
+    for i in range(len(decks)):
         for collection in decks:
+            deckid=collection[1]
             for card in collection:
-                requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/cards/'+str(card['uid'])+'.json',json.dumps(card))
-    except:
-        raise
-    return()
+                r=requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/'+card['libraryid']+'/'+str(card['uid'])+'.json',json.dumps(card))
+    return(r)
 
 #######functions for creating decks, adding and removing cards
 
@@ -78,7 +96,6 @@ def create_collection(collection_config,masterdb,targetdb):
                 add_card_to_collection(targetdb,card)
 
     return()
-
 
 def remove_card():
     return()
@@ -186,10 +203,10 @@ def insert_to_mongo_collection(db,cards):
         raise
     return()
 
-def insert_sets(db):
+def insert_sets(db,sets):
     try:
-        for j in set:
-            dbsets.posts.insert_one(parse_set(j))
+        for j in sets:
+            db.posts.insert_one(parse_set(j))
     except:
         raise
     return()

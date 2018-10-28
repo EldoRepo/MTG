@@ -11,14 +11,22 @@ if __name__ == "__main__":
 
     ##connect to local db
     client = MongoClient('localhost', 27017)
-    targetdb=client['MTG_CARDS'].test_deck
-    
+    targetdb=client['MTG_CARDS'].Leovold
+
     #create_collection(collection_config,masterdb,targetdb)
     decklist=[]
+    decklist1=[]
     for i in targetdb.find():
             decklist.append(i)
+    for i in targetdb.find():
+            decklist1.append(i)
 
-    mydeck=MTG.clean_collection(decklist)
-    mydeck=MTG.add_gameplay_properties(decklist)
-    MTG.serve_firebase(mydeck)
+    p1=MTG.clean_collection(decklist)
+    p1=MTG.add_gameplay_properties(decklist)
+
+    p2=MTG.clean_collection(decklist1)
+    p2=MTG.add_gameplay_properties(decklist1)
+
+    MTG.create_game([p1,p2])
+    #MTG.serve_firebase(p1)
 
