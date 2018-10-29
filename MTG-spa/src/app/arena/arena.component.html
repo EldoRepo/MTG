@@ -11,8 +11,8 @@
             <i>count: {{ libraryTwoCards?.length }}</i>
         </div>
         <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'">
-            <h2>Discard</h2>
-            <button mat-button (click)="viewCards(1, 2)">View Discard</button>
+            <h2>Graveyard</h2>
+            <button mat-button (click)="viewCards(1, 2)">View Graveyard</button>
             <br/>
             <i>count: {{ discardTwo?.length }}</i>
         </div>
@@ -154,8 +154,8 @@
                     cdkDropList #discardOneZone="cdkDropList" [cdkDropListData]="discardOne" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, libraryOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)" >
-                        <h2>Discard</h2>
-                        <button mat-button (click)="viewCards(1, 1)">View Discard</button>
+                        <h2>Graveyard</h2>
+                        <button mat-button (click)="viewCards(1, 1)">View Graveyard</button>
                         <br/>
                         <i>count: {{ discardOne?.length }}</i>
                     </div>
