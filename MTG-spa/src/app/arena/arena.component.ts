@@ -98,6 +98,7 @@ export class ArenaComponent implements OnInit {
     }
   }
   createToken() {
+    this.dialog.closeAll();
     const dialogRef = this.dialog.open(CreateTokenComponent, {
       width: '400px',
       data: this.currentPlayer.libraryid
@@ -230,6 +231,7 @@ export class ArenaComponent implements OnInit {
     clearTimeout(this.timer);
   }
   viewCard(selectedCard: any) {
+    this.dialog.closeAll();
     const dialogRef = this.dialog.open(ViewCardComponent, {
       width: '400px',
       data: selectedCard
@@ -241,6 +243,7 @@ export class ArenaComponent implements OnInit {
     this.fireService.addEvent(event);
   }
   viewCards(type: number, cardSet: number) {
+    this.dialog.closeAll();
     let cards: any[];
     if (cardSet === 1) {
       if (type === 0) {
