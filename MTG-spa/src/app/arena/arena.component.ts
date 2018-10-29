@@ -196,7 +196,7 @@ export class ArenaComponent implements OnInit {
     const that = this;
     this.timer = setTimeout(function() {
       that.viewCard(card);
-    }, 3000);
+    }, 2000);
     this.addEvent('Viewed card:' + card.name);
   }
   hoverLeave() {
@@ -204,7 +204,7 @@ export class ArenaComponent implements OnInit {
   }
   viewCard(selectedCard: any) {
     const dialogRef = this.dialog.open(ViewCardComponent, {
-      width: '400px',
+      width: '300px',
       data: selectedCard
     });
     this.setUpCards();
