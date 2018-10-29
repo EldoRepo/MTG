@@ -28,14 +28,14 @@ export class FirebaseserviceService {
     return this.database.list('/Cards').valueChanges();
   }
   addEvent(event: string) {
-     // this.database.object('/Eventlogs/eventLogs/' + this.createGuid()).set(event);
+    // this.database.object('/Eventlogs/eventlogs/' + this.createGuid()).set(event);
   }
   createGuid() {
-      // return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      //     // tslint:disable-next-line:no-bitwise
-      //     const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-      //     return v.toString(16);
-      // });
-      return 'hello';
+      let text = '';
+      const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      for (let i = 0; i < 5; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
   }
 }

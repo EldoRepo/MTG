@@ -1,3 +1,4 @@
+
 <div>
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
     <div fxFlex="20%">
@@ -5,6 +6,7 @@
             <div><h1>{{ opponentPlayer?.life }}</h1></div>
             <h2>Library</h2> 
             <button mat-button (click)="viewCards(0, 2)">View Library</button>
+            <button mat-button (click)="shuffleLibrary(2)">Shuffle Library</button>
             <i>count: {{ libraryTwoCards?.length }}</i>
         </div>
         <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'">
@@ -13,16 +15,16 @@
             <i>count: {{ discardTwo?.length }}</i>
         </div>
         <div>
-            Your Life: <mat-icon (click)="increaseLife(1)">add</mat-icon> {{ currentPlayer?.life }} <mat-icon (click)="decreaseLife(1)">remove</mat-icon>
-            <br/>
             Opponents Life: <mat-icon (click)="increaseLife(2)">add</mat-icon> {{ opponentPlayer?.life }}  <mat-icon (click)="decreaseLife(2)">remove</mat-icon>
+            <br/>
+            Your Life: <mat-icon (click)="increaseLife(1)">add</mat-icon> {{ currentPlayer?.life }} <mat-icon (click)="decreaseLife(1)">remove</mat-icon>
         </div>
     </div>
     <div fxFlex="80%">
         <div cdkDropList #handTwoZone="cdkDropList" [cdkDropListData]="handTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, landsTwoZone]" 
         cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
         style="overflow-x:scroll;"> 
-            <div *ngFor="let card of handTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+            <div *ngFor="let card of handTwo" cdkDrag (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                 <img draggable="false" mat-card-image src="https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/Magic_the_gathering-card_back.jpg/200px-Magic_the_gathering-card_back.jpg" alt="Photo of a Card" style="width:80px;">
             </div>
@@ -80,7 +82,7 @@
             <div cdkDropList #handOneZone="cdkDropList" [cdkDropListData]="handOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, landsOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
             style="overflow-x:scroll;"> 
-                <div *ngFor="let card of handOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <div *ngFor="let card of handOne" cdkDrag [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
                 </div>
             </div>
@@ -95,13 +97,16 @@
                     </mat-select>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="4" [rowspan]="2">
-                    <mat-list class="example-full-width" style="overflow: auto;">
-                        <h3 mat-subheader>Events</h3>
-                        <mat-list-item *ngFor="let event of eventLogs" class="example-full-width">
-                            <p mat-line> {{event}} </p>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
-                    </mat-list>
+                    <div style="overflow-y: auto;">
+                        <div *ngFor="let event of eventLogs" >
+                            <p> {{event}} </p>
+                        </div>
+                    </div>
+                    <!-- <div style="overflow-y: auto;">
+                        <div *ngFor="let event of eventLogs" >
+                            <p> {{event}} </p>
+                        </div>
+                    </div> -->
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="3" [rowspan]="1">
                     <mat-form-field class="example-full-width">
@@ -116,6 +121,7 @@
                     <div style='width:200px;height:200px;' [style.background]="'lightblue'">
                         <h2>Library</h2> 
                         <button mat-button (click)="viewCards(0, 1)">View Library</button>
+                        <button mat-button (click)="shuffleLibrary(1)">Shuffle Library</button>
                         <button mat-button (click)="drawCard()">Draw Card</button>
                         <i>count: {{ libraryOneCards?.length }}</i>
                     </div>

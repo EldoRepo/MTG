@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MatDialog } from '@angular/material';
 import { FirebaseserviceService } from '../services/firebaseservice.service';
@@ -11,7 +11,7 @@ import { MtgPlayer } from '../interfaces/player';
   selector: 'app-arena',
   templateUrl: './arena.component.html',
   styleUrls: ['./arena.component.css'],
-  providers: [FirebaseserviceService]
+  providers: [FirebaseserviceService],
 })
 export class ArenaComponent implements OnInit {
   // public cards: any[];
@@ -193,10 +193,11 @@ export class ArenaComponent implements OnInit {
     });
   }
   hoveringOverCard(card: any) {
-    // const that = this;
-    // this.timer = setTimeout(function() {
-    //   that.viewCard(card);
-    // }, 3000);
+    const that = this;
+    this.timer = setTimeout(function() {
+      that.viewCard(card);
+    }, 3000);
+    this.addEvent('Viewed card:' + card.name);
   }
   hoverLeave() {
     clearTimeout(this.timer);
@@ -209,6 +210,7 @@ export class ArenaComponent implements OnInit {
     this.setUpCards();
   }
   addEvent(event: string) {
+    console.log(event);
     this.fireService.addEvent(event);
   }
   viewCards(type: number, cardSet: number) {
@@ -276,5 +278,32 @@ export class ArenaComponent implements OnInit {
     }
     selectedPlayer.life -= 1;
     this.fireService.updatePlayer(selectedPlayer);
+  }
+  getShuffleLibrary(library: any) {
+    const libraryCount = library.length;
+    let counter = library.length;
+    // While there are elements in the array
+    while (counter > 0) {
+        // Pick a random index
+        const index = Math.floor(Math.random() * counter);
+        // Decrease counter by 1
+        counter--;
+        // And swap the last element with it
+        const temp = library[counter];
+        library[counter] = library[index];
+        library[index] = temp;
+    }
+    return library;
+  }
+  shuffleLibrary(libraryNumber: number) {
+    let library: any[];
+    if (libraryNumber === 1) {
+       library = this.getShuffleLibrary(this.libraryOneCards);
+    } else {
+       library = this.getShuffleLibrary(this.libraryTwoCards);
+    }
+    library.forEach(x =>
+    this.fireService.updateCard(x)
+    );
   }
 }
