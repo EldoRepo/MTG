@@ -99,6 +99,7 @@ export class ArenaComponent implements OnInit {
     this.currentPlayer = this.players.filter(x => x.playerid === selectedPlayerId)[0];
     this.opponentPlayer = this.players.filter(x => x.playerid !== selectedPlayerId)[0];
     this.setUpCards();
+    this.addEvent('Player has changed players');
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -114,6 +115,7 @@ export class ArenaComponent implements OnInit {
                         event.currentIndex);
     }
     this.moveCard(movedCard, this.getLocationId(event.container.id));  // move card
+    this.addEvent('Player has moved a card');
   }
   getLocationId(containerId: string) {
     if (containerId === 'cdk-drop-list-0') {
@@ -139,6 +141,12 @@ export class ArenaComponent implements OnInit {
     }
     if (containerId === 'cdk-drop-list-7') {
       return 4;
+    }
+    if (containerId === 'cdk-drop-list-8') {
+      return 0;
+    }
+    if (containerId === 'cdk-drop-list-9') {
+      return 5;
     }
   }
   isScroll(zoneNumber: number) {
@@ -180,6 +188,7 @@ export class ArenaComponent implements OnInit {
     cardsDrawn.forEach(element => {
       this.fireService.updateCard(element);
     });
+    this.addEvent('Player has drawed card');
   }
   changeCardPosession() {
     //
@@ -191,12 +200,13 @@ export class ArenaComponent implements OnInit {
     cardsDrawn.forEach(element => {
       this.fireService.updateCard(element);
     });
+    this.addEvent('Player has drawed 7 cards');
   }
   hoveringOverCard(card: any) {
     const that = this;
     this.timer = setTimeout(function() {
       that.viewCard(card);
-    }, 1500);
+    }, 2000);
     this.addEvent('Viewed card:' + card.name);
   }
   hoverLeave() {
@@ -232,6 +242,7 @@ export class ArenaComponent implements OnInit {
       width: '400px',
       data: cards
     });
+    this.addEvent('Player has viewed library or discard');
   }
   setUpCards() {
     const currentPlayerSet: MtgPlayer = this.players.filter(x => x.playerid === this.currentPlayer.playerid)[0];
@@ -267,6 +278,7 @@ export class ArenaComponent implements OnInit {
     }
     selectedPlayer.life += 1;
     this.fireService.updatePlayer(selectedPlayer);
+    this.addEvent('Player has increased life');
   }
   decreaseLife(player: number) {
     console.log(player);
@@ -278,6 +290,7 @@ export class ArenaComponent implements OnInit {
     }
     selectedPlayer.life -= 1;
     this.fireService.updatePlayer(selectedPlayer);
+    this.addEvent('Player has decreased life');
   }
   getShuffleLibrary(library: any) {
     const libraryCount = library.length;
@@ -305,5 +318,6 @@ export class ArenaComponent implements OnInit {
     library.forEach(x =>
     this.fireService.updateCard(x)
     );
+    this.addEvent('Player has shuffled library');
   }
 }

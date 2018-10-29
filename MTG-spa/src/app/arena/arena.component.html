@@ -24,9 +24,11 @@
         <div cdkDropList #handTwoZone="cdkDropList" [cdkDropListData]="handTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, landsTwoZone]" 
         cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
         style="overflow-x:scroll;"> 
-            <div *ngFor="let card of handTwo" cdkDrag (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+            <div *ngFor="let card of handTwo" cdkDrag
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                <img draggable="false" mat-card-image src="https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/Magic_the_gathering-card_back.jpg/200px-Magic_the_gathering-card_back.jpg" alt="Photo of a Card" style="width:80px;">
+                <img draggable="false" mat-card-image
+                 src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card" 
+                 alt="Photo of a Card" style="width:80px;">
             </div>
         </div>
         <div cdkDropList #landsTwoZone="cdkDropList" [cdkDropListData]="landsTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, handTwoZone]" 
@@ -34,7 +36,9 @@
         [style.background]="'lightgreen'" [ngClass]="isScroll(3) > 10 ? 'mtgScrollRow' : ''">
             <div *ngFor="let card of landsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                <img draggable="false" mat-card-image [src]="card.image" 
+                onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                alt="Photo of a Card" style="width:80px;">
             </div>
         </div>
         <div cdkDropList #enchantmentsTwoZone="cdkDropList" [cdkDropListData]="enchantmentsTwo" [cdkDropListConnectedTo]="[creaturesTwoZone, handTwoZone, landsTwoZone]"
@@ -42,14 +46,18 @@
         [style.background]="'lightblue'" style="overflow-x:scroll;">
         <div *ngFor="let card of enchantmentsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
         [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-            <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+            <img draggable="false" mat-card-image [src]="card.image"
+            onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+             alt="Photo of a Card" style="width:80px;">
         </div>
         </div>
         <div cdkDropList #creaturesTwoZone="cdkDropList" [cdkDropListData]="creaturesTwo" [cdkDropListConnectedTo]="[enchantmentsTwoZone, handTwoZone, landsTwoZone]" 
         cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:scroll;">
             <div *ngFor="let card of creaturesTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                <img draggable="false" mat-card-image [src]="card.image" 
+                onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                alt="Photo of a Card" style="width:80px;">
             </div>
         </div>
     </div>
@@ -58,35 +66,43 @@
 <hr>
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
         <div fxFlex="80%">
-            <div cdkDropList #creaturesOneZone="cdkDropList" [cdkDropListData]="creaturesOne" [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, landsOneZone]" 
+            <div cdkDropList #creaturesOneZone="cdkDropList" [cdkDropListData]="creaturesOne" [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, landsOneZone, discardOneZone, libraryOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:scroll;">
                 <div *ngFor="let card of creaturesOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
                  [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                    <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                    <img draggable="false" mat-card-image [src]="card.image" 
+                    onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                    alt="Photo of a Card" style="width:80px;">
                 </div>
             </div>
-            <div cdkDropList #enchantmentsOneZone="cdkDropList" [cdkDropListData]="enchantmentsOne" [cdkDropListConnectedTo]="[creaturesOneZone, handOneZone, landsOneZone]"
+            <div cdkDropList #enchantmentsOneZone="cdkDropList" [cdkDropListData]="enchantmentsOne" [cdkDropListConnectedTo]="[creaturesOneZone, handOneZone, landsOneZone, discardOneZone, libraryOneZone]"
                 cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
             [style.background]="'lightblue'" style="overflow-x:scroll;">
             <div *ngFor="let card of enchantmentsOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                <img draggable="false" mat-card-image [src]="card.image" 
+                onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                alt="Photo of a Card" style="width:80px;">
             </div>
             </div>
-            <div cdkDropList #landsOneZone="cdkDropList" [cdkDropListData]="landsOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, handOneZone]" 
+            <div cdkDropList #landsOneZone="cdkDropList" [cdkDropListData]="landsOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, handOneZone, discardOneZone, libraryOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
             [style.background]="'lightgreen'" [ngClass]="isScroll(3) > 10 ? 'mtgScrollRow' : ''">
                 <div *ngFor="let card of landsOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
                 [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                    <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                    <img draggable="false" mat-card-image [src]="card.image" 
+                    onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                    alt="Photo of a Card" style="width:80px;">
                 </div>
             </div>
             <!-- <h2>Hand</h2> -->
-            <div cdkDropList #handOneZone="cdkDropList" [cdkDropListData]="handOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, landsOneZone]" 
+            <div cdkDropList #handOneZone="cdkDropList" [cdkDropListData]="handOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, libraryOneZone, creaturesOneZone, landsOneZone, discardOneZone, libraryOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
             style="overflow-x:scroll;"> 
                 <div *ngFor="let card of handOne" cdkDrag  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                    <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
+                    <img draggable="false" mat-card-image [src]="card.image"
+                    onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                     alt="Photo of a Card" style="width:80px;">
                 </div>
             </div>
         </div>
@@ -121,7 +137,11 @@
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
                     <div><h1>{{ currentPlayer?.life }}</h1></div>
-                    <div style='width:200px;height:200px;' [style.background]="'lightblue'">
+                    <div style='width:200px;height:200px;' [style.background]="'lightblue'"
+                    cdkDropList #libraryOneZone="cdkDropList" [cdkDropListData]="libraryOneCards" 
+                    [cdkDropListConnectedTo]="[enchantmentsOneZone, discardOneZone, handOneZone, landsOneZone, creaturesOneZone]" 
+                    (cdkDropListDropped)="drop($event)" 
+                    >
                         <h2>Library</h2> 
                         <button mat-button (click)="viewCards(0, 1)">View Library</button>
                         <button mat-button (click)="shuffleLibrary(1)">Shuffle Library</button>
@@ -130,7 +150,10 @@
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
-                    <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'">
+                    <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'"
+                    cdkDropList #discardOneZone="cdkDropList" [cdkDropListData]="discardOne" 
+                    [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, libraryOneZone, landsOneZone, creaturesOneZone]" 
+                    (cdkDropListDropped)="drop($event)" >
                         <h2>Discard</h2>
                         <button mat-button (click)="viewCards(1, 1)">View Discard</button>
                         <i>count: {{ discardOne?.length }}</i>
