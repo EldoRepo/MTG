@@ -43,7 +43,7 @@
         </div>
         <div cdkDropList #enchantmentsTwoZone="cdkDropList" [cdkDropListData]="enchantmentsTwo" [cdkDropListConnectedTo]="[creaturesTwoZone, handTwoZone, landsTwoZone]"
         cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
-        [style.background]="'lightblue'" style="overflow-x:scroll;">
+        [style.background]="'lightblue'" style="overflow-x:auto;">
         <div *ngFor="let card of enchantmentsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
         [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
             <img draggable="false" mat-card-image [src]="card.image"
@@ -52,7 +52,7 @@
         </div>
         </div>
         <div cdkDropList #creaturesTwoZone="cdkDropList" [cdkDropListData]="creaturesTwo" [cdkDropListConnectedTo]="[enchantmentsTwoZone, handTwoZone, landsTwoZone]" 
-        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:scroll;">
+        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:auto;">
             <div *ngFor="let card of creaturesTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                 <img draggable="false" mat-card-image [src]="card.image" 
@@ -67,7 +67,7 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
         <div fxFlex="80%">
             <div cdkDropList #creaturesOneZone="cdkDropList" [cdkDropListData]="creaturesOne" [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, landsOneZone, discardOneZone, libraryOneZone]" 
-            cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:scroll;">
+            cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:auto;">
                 <div *ngFor="let card of creaturesOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
                  [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image" 
@@ -77,7 +77,7 @@
             </div>
             <div cdkDropList #enchantmentsOneZone="cdkDropList" [cdkDropListData]="enchantmentsOne" [cdkDropListConnectedTo]="[creaturesOneZone, handOneZone, landsOneZone, discardOneZone, libraryOneZone]"
                 cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
-            [style.background]="'lightblue'" style="overflow-x:scroll;">
+            [style.background]="'lightblue'" style="overflow-x:auto;">
             <div *ngFor="let card of enchantmentsOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                 <img draggable="false" mat-card-image [src]="card.image" 
@@ -98,7 +98,7 @@
             <!-- <h2>Hand</h2> -->
             <div cdkDropList #handOneZone="cdkDropList" [cdkDropListData]="handOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, libraryOneZone, creaturesOneZone, landsOneZone, discardOneZone, libraryOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
-            style="overflow-x:scroll;"> 
+            style="overflow-x:auto;"> 
                 <div *ngFor="let card of handOne" cdkDrag  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image"
                     onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
