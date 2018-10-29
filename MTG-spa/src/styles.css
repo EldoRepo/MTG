@@ -2,9 +2,9 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .rotateCard {
-    -ms-transform: rotate(20deg); /* IE 9 */
-    -webkit-transform: rotate(20deg); /* Safari */
-    transform: rotate(20deg); /* Standard syntax */
+    -ms-transform: rotate(30deg); /* IE 9 */
+    -webkit-transform: rotate(30deg); /* Safari */
+    transform: rotate(30deg); /* Standard syntax */
 }
 .mtgScrollRow {
     overflow-x:scroll;
