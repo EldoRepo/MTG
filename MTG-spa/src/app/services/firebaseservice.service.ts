@@ -16,7 +16,8 @@ export class FirebaseserviceService {
     return card;
   }
   addCard(card: any) {
-    this.database.object('/Cards/' + this.createGuid()).set(card);
+    card.uid = this.createGuid;
+    this.database.object('/Cards/' + card.uid).set(card);
   }
   updateCardCounter(card: any) {
     card.counter += 1;

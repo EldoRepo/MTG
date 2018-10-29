@@ -9,7 +9,7 @@ import { FirebaseserviceService } from '../../services/firebaseservice.service';
   providers: [FirebaseserviceService]
 })
 export class CreateTokenComponent implements OnInit {
-  type;
+  name;
   power;
   toughness;
   quantity;
@@ -22,8 +22,9 @@ export class CreateTokenComponent implements OnInit {
   }
   createToken() {
     const card: any = {
-      name: 'Token',
-      type: this.type,
+      name: this.name,
+      tapped: false,
+      type: 'Token',
       toughness: this.toughness,
       power: this.power,
       libraryid: this.libraryid,

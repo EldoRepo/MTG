@@ -122,12 +122,15 @@
         </div>
         <div fxFlex="20%">
             <mat-grid-list cols="4" rowHeight="40px">
-                <mat-grid-tile [colspan]="4" [rowspan]="1">
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
                     <mat-select placeholder="Select Library" (selectionChange)="changePlayer($event.value)">
                         <mat-option *ngFor="let player of players" [value]="player.playerid"> <!--*ngFor="let food of foods"-->
                             {{player.playerid}}
                         </mat-option>
                     </mat-select>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <button mat-stroked-button color="primary" (click)="resetGame()">Reset Game</button>
                 </mat-grid-tile>
                 <!-- <mat-grid-tile [colspan]="4" [rowspan]="2">
                     <div style="overflow-y: auto;">

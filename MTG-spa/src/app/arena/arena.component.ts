@@ -111,7 +111,18 @@ export class ArenaComponent implements OnInit {
     this.setUpCards();
     this.addEvent('Player has changed players');
   }
-
+  resetGame() {
+    const allCards = this.allCards;
+    allCards.forEach(x => {
+      x.tapped = 0;
+      x.location = 0;
+      if (x.type === 'token') {
+        this.fireService.deleteCard(x);
+      } else {
+        this.fireService.updateCard(x);
+      }
+    });
+  }
   drop(event: CdkDragDrop<string[]>) {
     console.log(event);
     const movedCard = event.previousContainer.data[event.previousIndex];
