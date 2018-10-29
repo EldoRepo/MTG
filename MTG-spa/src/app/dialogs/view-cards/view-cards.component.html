@@ -30,7 +30,8 @@
     </mat-form-field>
     <hr/>
     <div *ngFor="let card of cards">
-        <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
+        <img mat-card-image [src]="card.image" alt="Missing Photo |" width="200px" height="200px">
+         {{card.name}}
           <button mat-button (click)="moveCard(card)">Execute</button>
     </div>
 </div>

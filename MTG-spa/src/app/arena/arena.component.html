@@ -72,9 +72,11 @@
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:auto;">
                 <div *ngFor="let card of creaturesOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
                  [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                    <img draggable="false" mat-card-image [src]="card.image" 
-                    onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                    alt="Photo of a Card" style="width:80px;">
+                 <span matBadge="4" matBadgePosition="above after" matBadgeOverlap="false">
+                        <img draggable="false" mat-card-image [src]="card.image" 
+                        onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                        alt="Photo of a Card" style="width:80px;">
+                 </span>
                 </div>
             </div>
             <div cdkDropList #enchantmentsOneZone="cdkDropList" [cdkDropListData]="enchantmentsOne" [cdkDropListConnectedTo]="[creaturesOneZone, handOneZone, landsOneZone, discardOneZone, libraryOneZone]"
