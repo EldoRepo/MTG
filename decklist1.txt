@@ -1,71 +1,72 @@
-1x, Academy Ruins
-1x, Aetherflux Reservoir
-1x, Ancient Excavation
-1x, Basalt Monolith
-1x, Beast Within
-1x, Boseiju, Who Shelters All
-1x, Breeding Pool
-1x, Burgeoning
-1x, Chromatic Lantern
-1x, Command Tower
-1x, Consuming Aberration
-1x, Counterspell
-1x, Creakwood Liege
-1x, Cyclonic Rift
-1x, Dakmor Salvage
-1x, Dark Deal
-1x, Dark Petition
-1x, Dark Ritual
-1x, Day's Undoing
-1x, Demonic Tutor
-1x, Drowned Catacomb
-1x, Entomb *F*
-1x, Expedition Map
-1x, Fabricate
-1x, Far Wanderings
-1x, Fellwar Stone
-1x, Font of Mythos
-8x, Forest
-1x, Harrow
-1x, Hinterland Harbor
-1x, Horn of Greed
-8x, Island
-1x, Kozilek, Butcher of Truth
-1x, Krosan Grip
-1x, Kydele, Chosen of Kruphix
-1x, Laboratory Maniac
-1x, Leovold, Emissary of Trest
-1x, Life from the Loam
-1x, Lotus Petal
-1x, Mana Crypt
-1x, Mesmeric Orb
-1x, Mind Stone
-1x, Mox Opal
-1x, Mystical Tutor
-1x, Nature's Claim
-1x, Negate
-1x, Overgrown Tomb
-1x, Pact of Negation
-1x, Polluted Delta
-1x, Prismatic Lens
-1x, Psychosis Crawler
-1x, Reflecting Pool
-1x, Reshape
-1x, Sculpting Steel
-1x, Sensei's Divining Top
-1x, Sewer Nemesis
-1x, Sol Ring
-1x, Spellskite
-8x, Swamp
-1x, Teferi's Puzzle Box
-1x, The Gitrog Monster
-1x, Thoughtseize
-1x, Time Reversal
-1x, Undermine
-1x, Vampiric Tutor
-1x, Villainous Wealth
-1x, Voidslime
-1x, Watery Grave
-1x, Whispering Madness
-1x, Windfall
-1x, Worm Harvest
+{'Academy Ruins':1,
+'Aetherflux Reservoir':1,
+'Ancient Excavation':1,
+'Basalt Monolith':1,
+'Beast Within':1,
+'Boseiju, Who Shelters All':1,
+'Breeding Pool':1,
+'Burgeoning':1,
+'Chromatic Lantern':1,
+'Command Tower':1,
+'Consuming Aberration':1,
+'Counterspell':1,
+'Creakwood Liege':1,
+'Cyclonic Rift':1,
+'Dakmor Salvage':1,
+'Dark Deal':1,
+'Dark Petition':1,
+'Dark Ritual':1,
+'Day's Undoing':1,
+'Demonic Tutor':1,
+'Drowned Catacomb':1,
+'Entomb *F*':1,
+'Expedition Map':1,
+'Fabricate':1,
+'Far Wanderings':1,
+'Fellwar Stone':1,
+'Font of Mythos':1,
+'Forest'':8,
+'Harrow':1,
+'Hinterland Harbor':1,
+'Horn of Greed':1,
+'Island'':8,
+'Kozilek, Butcher of Truth':1,
+'Krosan Grip':1,
+'Kydele, Chosen of Kruphix':1,
+'Laboratory Maniac':1,
+'Leovold, Emissary of Trest':1,
+'Life from the Loam':1,
+'Lotus Petal':1,
+'Mana Crypt':1,
+'Mesmeric Orb':1,
+'Mind Stone':1,
+'Mox Opal':1,
+'Mystical Tutor':1,
+'Nature's Claim':1,
+'Negate':1,
+'Overgrown Tomb':1,
+'Pact of Negation':1,
+'Polluted Delta':1,
+'Prismatic Lens':1,
+'Psychosis Crawler':1,
+'Reflecting Pool':1,
+'Reshape':1,
+'Sculpting Steel':1,
+'Sensei's Divining Top':1,
+'Sewer Nemesis':1,
+'Sol Ring':1,
+'Spellskite':1,
+'8x, Swamp
+'Teferi's Puzzle Box':1,
+'The Gitrog Monster':1,
+'Thoughtseize':1,
+'Time Reversal':1,
+'Undermine':1,
+'Vampiric Tutor':1,
+'Villainous Wealth':1,
+'Voidslime':1,
+'Watery Grave':1,
+'Whispering Madness':1,
+'Windfall':1,
+'Worm Harvest'':1
+}

@@ -40,32 +40,58 @@ def clean_collection(collection):
         remove=['_id','artist','supertypes','multiverse_id','layout','names','variations','watermark','border','timeshifted','hand','release_date','starter','foreign_names','printings','original_text','original_type','legalities','source','id']
         for prop in remove:
             #del card[prop]
-            i.pop(prop)
+            try:
+                i.pop(prop)
+            except:
+                pass
     return(collection)
 
 def serve_firebase(collection):
     try:
         for card in collection:
-            r=requests.put('https://mtggame-b3e32.firebaseio.com/cards/'+str(card['uid'])+'.json',json.dumps(card))
-            #print(r)    
+            requests.put('https://mtggame-b3e32.firebaseio.com/cards/'+str(card['uid'])+'.json',json.dumps(card))
+                
     except:
         raise
     return()
 
+###create player object####
 
+def createplayer(deck):
+    playerid=str(bson.objectid.ObjectId())
+    playerproperties={'playerid':playerid,
+                      'life':40,
+                      'poison_counters':0,
+                      'libraryid':deck[1]['libraryid']
+                    }
+    return(playerproperties)
 
 
 def create_game(decks):
-    game=dict()
+
     gameid=str(bson.objectid.ObjectId())
-    gameproperties=[gameid,'p1_life','p2_life','turn_possesion','turn_count']
-    try:
-        for collection in decks:
-            for card in collection:
-                requests.put('https://mtggame-b3e32.firebaseio.com/'+gameid+'/cards/'+str(card['uid'])+'.json',json.dumps(card))
-    except:
-        raise
-    return()
+    gameproperties={'gameid':gameid,
+                    'turn_possesion':0,
+                    'turn_count':0,
+                    'eventlogs':['game_start'],
+                    }
+    ### add library ids to game
+    for i in range(len(decks)):
+        gameproperties['libraryid_'+str(i+1)]=decks[i][1]['libraryid']
+    ###create players 
+    count=1
+    for k in decks:
+        player=createplayer(k) 
+        gameproperties['playerid_'+str(count)]=player['playerid']
+        for card in k:
+                r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/players/'+str(player['playerid'])+'/library/'+str(card['uid'])+'.json',json.dumps(card))
+        for playerproperty in player:
+            r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/players/'+str(player['playerid'])+'/'+str(playerproperty)+'.json',json.dumps(player[playerproperty]))
+        count+=1
+    ###send game properties
+    for j in gameproperties:
+        r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/'+str(j)+'.json',json.dumps(gameproperties[j]))
+    return(gameid)
 
 #######functions for creating decks, adding and removing cards
 
@@ -78,7 +104,6 @@ def create_collection(collection_config,masterdb,targetdb):
                 add_card_to_collection(targetdb,card)
 
     return()
-
 
 def remove_card():
     return()
@@ -186,10 +211,10 @@ def insert_to_mongo_collection(db,cards):
         raise
     return()
 
-def insert_sets(db):
+def insert_sets(db,sets):
     try:
-        for j in set:
-            dbsets.posts.insert_one(parse_set(j))
+        for j in sets:
+            db.posts.insert_one(parse_set(j))
     except:
         raise
     return()
