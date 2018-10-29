@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     ##connect to local db
     client = MongoClient('localhost', 27017)
-    targetdb=client['MTG_CARDS'].Leovold
+    targetdb=client['MTG_CARDS'].Sig
     target2db=client['MTG_CARDS'].Grenzo
 
     #create_collection(collection_config,masterdb,targetdb)

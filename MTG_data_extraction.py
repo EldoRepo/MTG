@@ -26,6 +26,7 @@ def get_collection(db,collection_id):
 
 def add_gameplay_properties(collection):
     libraryid=str(bson.objectid.ObjectId())
+    index=0
     for i in collection:
         i['libraryid']=libraryid
         i['uid']= str(bson.objectid.ObjectId())
@@ -33,6 +34,8 @@ def add_gameplay_properties(collection):
         i['tapped']=False
         i['counter']=0
         i['flipped']=False
+        i['libraryindex']=index
+        index+=1
     return(collection)
 
 def clean_collection(collection):
@@ -73,8 +76,11 @@ def create_game(decks):
     gameproperties={'gameid':gameid,
                     'turn_possesion':0,
                     'turn_count':0,
-                    'eventlogs':['game_start'],
+                    
                     }
+    eventlog={'eventlogs':['game_start'],
+                }
+    r=requests.put('https://mtggame-b3e32.firebaseio.com/Eventlogs/.json',json.dumps(eventlog))
     ### add library ids to game
     for i in range(len(decks)):
         gameproperties['libraryid_'+str(i+1)]=decks[i][1]['libraryid']
@@ -84,9 +90,9 @@ def create_game(decks):
         player=createplayer(k) 
         gameproperties['playerid_'+str(count)]=player['playerid']
         for card in k:
-                r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/players/'+str(player['playerid'])+'/library/'+str(card['uid'])+'.json',json.dumps(card))
+                r=requests.put('https://mtggame-b3e32.firebaseio.com/Cards/'+str(card['uid'])+'.json',json.dumps(card))
         for playerproperty in player:
-            r=requests.put('https://mtggame-b3e32.firebaseio.com/Game/players/'+str(player['playerid'])+'/'+str(playerproperty)+'.json',json.dumps(player[playerproperty]))
+            r=requests.put('https://mtggame-b3e32.firebaseio.com/players/'+str(player['playerid'])+'/'+str(playerproperty)+'.json',json.dumps(player[playerproperty]))
         count+=1
     ###send game properties
     for j in gameproperties:
@@ -99,6 +105,7 @@ def create_collection(collection_config,masterdb,targetdb):
     
     for card_name in collection_config:
             card=get_card_by_field(masterdb,'name',card_name)
+            print(card_name)
             for n in range(collection_config[card_name]):
                 card["_id"]=bson.objectid.ObjectId()
                 add_card_to_collection(targetdb,card)
