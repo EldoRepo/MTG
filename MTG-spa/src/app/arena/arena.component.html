@@ -23,7 +23,7 @@
     <div fxFlex="80%">
         <div cdkDropList #handTwoZone="cdkDropList" [cdkDropListData]="handTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, landsTwoZone]" 
         cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
-        style="overflow-x:scroll;"> 
+        style="overflow-x:auto;"> 
             <div *ngFor="let card of handTwo" cdkDrag
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                 <img draggable="false" mat-card-image
