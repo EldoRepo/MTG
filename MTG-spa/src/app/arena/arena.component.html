@@ -3,7 +3,7 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
     <div fxFlex="20%">
         <div style='width:200px;height:200px;' [style.background]="'lightblue'">
-            <div><h1>{{ opponentPlayer?.life }}</h1></div>
+            <!-- <div><h1>{{ opponentPlayer?.life }}</h1></div> -->
             <h2>Library</h2> 
             <button mat-button (click)="viewCards(0, 2)">View Library</button>
             <button mat-button (click)="shuffleLibrary(2)">Shuffle Library</button>
@@ -33,7 +33,7 @@
         </div>
         <div cdkDropList #landsTwoZone="cdkDropList" [cdkDropListData]="landsTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, handTwoZone]" 
         cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
-        [style.background]="'lightgreen'" [ngClass]="isScroll(3) > 10 ? 'mtgScrollRow' : ''">
+        [style.background]="'lightgreen'" style="overflow-x:auto;">
             <div *ngFor="let card of landsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
              [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                 <img draggable="false" mat-card-image [src]="card.image" 
@@ -87,7 +87,7 @@
             </div>
             <div cdkDropList #landsOneZone="cdkDropList" [cdkDropListData]="landsOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, handOneZone, discardOneZone, libraryOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
-            [style.background]="'lightgreen'" [ngClass]="isScroll(3) > 10 ? 'mtgScrollRow' : ''">
+            [style.background]="'lightgreen'" style="overflow-x:auto;">
                 <div *ngFor="let card of landsOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
                 [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image" 
@@ -115,18 +115,13 @@
                         </mat-option>
                     </mat-select>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="4" [rowspan]="2">
+                <!-- <mat-grid-tile [colspan]="4" [rowspan]="2">
                     <div style="overflow-y: auto;">
                         <div *ngFor="let event of eventLogs" >
                             <p> {{event}} </p>
                         </div>
                     </div>
-                    <!-- <div style="overflow-y: auto;">
-                        <div *ngFor="let event of eventLogs" >
-                            <p> {{event}} </p>
-                        </div>
-                    </div> -->
-                </mat-grid-tile>
+                </mat-grid-tile> -->
                 <mat-grid-tile [colspan]="3" [rowspan]="1">
                     <mat-form-field class="example-full-width">
                         <textarea #cb1 matInput placeholder="Leave a comment"></textarea>
@@ -135,9 +130,9 @@
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     <button mat-stroked-button color="primary" (click)="addEvent(cb1.value)">Submit</button>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="2">
-                    <div><h1>{{ currentPlayer?.life }}</h1></div>
-                    <div style='width:200px;height:200px;' [style.background]="'lightblue'"
+                <mat-grid-tile [colspan]="2" [rowspan]="3">
+                    <!-- <div><h1>{{ currentPlayer?.life }}</h1></div> -->
+                    <div style='width:200px;height:100%;' [style.background]="'lightblue'"
                     cdkDropList #libraryOneZone="cdkDropList" [cdkDropListData]="libraryOneCards" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, discardOneZone, handOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)" 
@@ -149,8 +144,8 @@
                         <i>count: {{ libraryOneCards?.length }}</i>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="2">
-                    <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'"
+                <mat-grid-tile [colspan]="2" [rowspan]="3">
+                    <div style='width:200px;height:100%;' [style.background]="'#DDBDF1'"
                     cdkDropList #discardOneZone="cdkDropList" [cdkDropListData]="discardOne" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, libraryOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)" >
