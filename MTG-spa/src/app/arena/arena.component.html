@@ -7,11 +7,13 @@
             <h2>Library</h2> 
             <button mat-button (click)="viewCards(0, 2)">View Library</button>
             <button mat-button (click)="shuffleLibrary(2)">Shuffle Library</button>
+            <br/>
             <i>count: {{ libraryTwoCards?.length }}</i>
         </div>
         <div style='width:200px;height:200px;' [style.background]="'#DDBDF1'">
             <h2>Discard</h2>
             <button mat-button (click)="viewCards(1, 2)">View Discard</button>
+            <br/>
             <i>count: {{ discardTwo?.length }}</i>
         </div>
         <div>
@@ -141,6 +143,7 @@
                         <button mat-button (click)="viewCards(0, 1)">View Library</button>
                         <button mat-button (click)="shuffleLibrary(1)">Shuffle Library</button>
                         <button mat-button (click)="drawCard()">Draw Card</button>
+                        <br/>
                         <i>count: {{ libraryOneCards?.length }}</i>
                     </div>
                 </mat-grid-tile>
@@ -151,6 +154,7 @@
                     (cdkDropListDropped)="drop($event)" >
                         <h2>Discard</h2>
                         <button mat-button (click)="viewCards(1, 1)">View Discard</button>
+                        <br/>
                         <i>count: {{ discardOne?.length }}</i>
                     </div>
                 </mat-grid-tile>

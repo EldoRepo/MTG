@@ -56,6 +56,7 @@ export class ArenaComponent implements OnInit {
     database.list('/Cards').valueChanges()
     .subscribe(list => {
       this.allCards = list;
+      this.allCards = this.allCards.sort((a, b) => a.libraryindex < b.libraryindex ? -1 : a.libraryindex > b.libraryindex ? 1 : 0);
       if (this.firstInitialize === true) {
         this.initCount++;
         this.firstInitSetup();
