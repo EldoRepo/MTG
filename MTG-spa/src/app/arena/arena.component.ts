@@ -196,7 +196,7 @@ export class ArenaComponent implements OnInit {
     const that = this;
     this.timer = setTimeout(function() {
       that.viewCard(card);
-    }, 2000);
+    }, 1500);
     this.addEvent('Viewed card:' + card.name);
   }
   hoverLeave() {

@@ -60,21 +60,24 @@
         <div fxFlex="80%">
             <div cdkDropList #creaturesOneZone="cdkDropList" [cdkDropListData]="creaturesOne" [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, landsOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'#DDBDF1'" style="overflow-x:scroll;">
-                <div *ngFor="let card of creaturesOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <div *ngFor="let card of creaturesOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+                 [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
                 </div>
             </div>
             <div cdkDropList #enchantmentsOneZone="cdkDropList" [cdkDropListData]="enchantmentsOne" [cdkDropListConnectedTo]="[creaturesOneZone, handOneZone, landsOneZone]"
                 cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
             [style.background]="'lightblue'" style="overflow-x:scroll;">
-            <div *ngFor="let card of enchantmentsOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+            <div *ngFor="let card of enchantmentsOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+             [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                 <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
             </div>
             </div>
             <div cdkDropList #landsOneZone="cdkDropList" [cdkDropListData]="landsOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, handOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
             [style.background]="'lightgreen'" [ngClass]="isScroll(3) > 10 ? 'mtgScrollRow' : ''">
-                <div *ngFor="let card of landsOne" cdkDrag (dblclick)="tapCard(card)" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <div *ngFor="let card of landsOne" cdkDrag (dblclick)="tapCard(card)"  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+                [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
                 </div>
             </div>
@@ -82,7 +85,7 @@
             <div cdkDropList #handOneZone="cdkDropList" [cdkDropListData]="handOne"  [cdkDropListConnectedTo]="[enchantmentsOneZone, creaturesOneZone, landsOneZone]" 
             cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
             style="overflow-x:scroll;"> 
-                <div *ngFor="let card of handOne" cdkDrag [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                <div *ngFor="let card of handOne" cdkDrag  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image" alt="Photo of a Card" style="width:80px;">
                 </div>
             </div>
