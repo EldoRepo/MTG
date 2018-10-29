@@ -166,6 +166,9 @@ export class ArenaComponent implements OnInit {
   }
   moveCard(card: any, location: number) {
     card.location = location;
+    if(location === 4) {
+      card.tapped = 0;
+    }
     this.fireService.updateCard(card);
   }
   tapCard(card: any) {
