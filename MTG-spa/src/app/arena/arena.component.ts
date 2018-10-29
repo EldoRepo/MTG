@@ -240,7 +240,7 @@ export class ArenaComponent implements OnInit {
       }
     }
     const dialogRef = this.dialog.open(ViewCardsComponent, {
-      width: '400px',
+      width: '500px',
       data: cards
     });
     this.addEvent('Player has viewed library or discard');

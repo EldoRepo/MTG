@@ -30,9 +30,15 @@
     </mat-form-field>
     <hr/>
     <div *ngFor="let card of cards">
+        <div fxFlex="70%">
         <img mat-card-image [src]="card.image" alt="Missing Photo |" width="200px" height="200px">
-         {{card.name}}
-          <button mat-button (click)="moveCard(card)">Execute</button>
+        </div>
+        <div fxFlex="20%">
+            {{card.name}}
+            <button mat-button (click)="moveCard(card)">Execute</button>
+        </div>
+        <div fxFlex="10%">
+        </div>
     </div>
 </div>
 
