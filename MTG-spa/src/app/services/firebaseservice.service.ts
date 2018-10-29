@@ -15,6 +15,13 @@ export class FirebaseserviceService {
     .update(card);
     return card;
   }
+  addCard(card: any) {
+    this.database.object('/Cards/' + this.createGuid()).set(card);
+  }
+  updateCardCounter(card: any) {
+    card.counter += 1;
+    this.updateCard(card);
+  }
   updatePlayer(player: any): any {
     this.database.object('/players/' + player.playerid)
     .update(player);
@@ -28,7 +35,7 @@ export class FirebaseserviceService {
     return this.database.list('/Cards').valueChanges();
   }
   addEvent(event: string) {
-    // this.database.object('/Eventlogs/eventlogs/' + this.createGuid()).set(event);
+    this.database.object('/Eventlogs/eventlogs/' + this.createGuid()).set(event);
   }
   createGuid() {
       let text = '';

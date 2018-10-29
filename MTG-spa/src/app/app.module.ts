@@ -16,6 +16,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewCardsComponent } from './dialogs/view-cards/view-cards.component';
 import { FormsModule } from '@angular/forms';
+import { CreateTokenComponent } from './dialogs/create-token/create-token.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +24,13 @@ import { FormsModule } from '@angular/forms';
     ArenaComponent,
     CardlibraryComponent,
     ViewCardComponent,
-    ViewCardsComponent
+    ViewCardsComponent,
+    CreateTokenComponent
   ],
   entryComponents: [
     ViewCardComponent,
-    ViewCardsComponent
+    ViewCardsComponent,
+    CreateTokenComponent
   ],
   imports: [
     BrowserModule,

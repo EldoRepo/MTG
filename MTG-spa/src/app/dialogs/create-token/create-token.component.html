@@ -1,0 +1,18 @@
+Token Specifics
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Creature Type" value="" [(ngModel)]="type" #typeInput name="type">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="Power" value="1" [(ngModel)]="power" #powerInput name="power">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Toughness" value="1" [(ngModel)]="toughness" #toughnessInput name="toughness">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Quantity" value="1" [(ngModel)]="quantity" #quantityInput name="quantity">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <button mat-button (click)="createToken()">Create Token</button>
+  </mat-form-field>
+</form>

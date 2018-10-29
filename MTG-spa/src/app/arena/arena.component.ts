@@ -6,6 +6,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { ViewCardComponent } from '../dialogs/view-card/view-card.component';
 import { ViewCardsComponent } from '../dialogs/view-cards/view-cards.component';
 import { MtgPlayer } from '../interfaces/player';
+import { CreateTokenComponent } from '../dialogs/create-token/create-token.component';
 
 @Component({
   selector: 'app-arena',
@@ -95,6 +96,13 @@ export class ArenaComponent implements OnInit {
       this.setUpCards();
       this.firstInitialize = false;
     }
+  }
+  createToken() {
+    const dialogRef = this.dialog.open(CreateTokenComponent, {
+      width: '400px',
+      data: this.currentPlayer.libraryid
+    });
+    this.setUpCards();
   }
   changePlayer(selectedPlayerId: string) {
     this.currentPlayer = this.players.filter(x => x.playerid === selectedPlayerId)[0];
@@ -194,7 +202,12 @@ export class ArenaComponent implements OnInit {
     });
     this.addEvent('Player has drawed card');
   }
-  changeCardPosession() {
+  changeCardPosession(card: any) {
+    card.libraryid = this.opponentPlayer.libraryid;
+    card.location = 1;
+    this.fireService.updateCard(card);
+  }
+  untapAndDrawCard() {
     //
   }
   drawHand() {
@@ -323,5 +336,8 @@ export class ArenaComponent implements OnInit {
     this.fireService.updateCard(x)
     );
     this.addEvent('Player has shuffled library');
+  }
+  updateCardCounter(card: any) {
+    this.fireService.updateCardCounter(card); // increases
   }
 }

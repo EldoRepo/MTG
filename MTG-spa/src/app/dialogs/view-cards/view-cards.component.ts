@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FirebaseserviceService } from '../../services/firebaseservice.service';
 
 @Component({
@@ -11,9 +11,12 @@ import { FirebaseserviceService } from '../../services/firebaseservice.service';
 export class ViewCardsComponent implements OnInit {
   company = 0;
   selectValue = 0;
-  constructor(@Inject(MAT_DIALOG_DATA) public cards: any[], public fireService: FirebaseserviceService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public cards: any[], public fireService: FirebaseserviceService, public dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+  onClose(): void {
+    this.dialog.closeAll();
   }
   moveCard(card: any) {
     if (this.company !== 0) {
