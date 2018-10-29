@@ -204,7 +204,7 @@ export class ArenaComponent implements OnInit {
   }
   viewCard(selectedCard: any) {
     const dialogRef = this.dialog.open(ViewCardComponent, {
-      width: '300px',
+      width: '400px',
       data: selectedCard
     });
     this.setUpCards();
@@ -229,7 +229,7 @@ export class ArenaComponent implements OnInit {
       }
     }
     const dialogRef = this.dialog.open(ViewCardsComponent, {
-      width: '300px',
+      width: '400px',
       data: cards
     });
   }
