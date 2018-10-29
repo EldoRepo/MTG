@@ -13,7 +13,8 @@ import {
   MatGridListModule,
   MatSelectModule,
   MatListModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatInputModule,
 } from '@angular/material';
 
 @NgModule({
@@ -30,7 +31,8 @@ import {
     DragDropModule,
     MatSelectModule,
     MatListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatInputModule
   ],
   exports: [
     MatButtonModule,
@@ -45,7 +47,8 @@ import {
     DragDropModule,
     MatSelectModule,
     MatListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatInputModule
   ]
 })
 export class CustomMaterialModule {}

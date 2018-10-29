@@ -15,6 +15,7 @@ import { firebaseConfig } from './firebase.config';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewCardsComponent } from './dialogs/view-cards/view-cards.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ViewCardsComponent } from './dialogs/view-cards/view-cards.component';
     RouterModule.forRoot(appRoutes, { useHash: true }),
     AngularFireModule.initializeApp(firebaseConfig, 'MTGgame'),
     AngularFireDatabaseModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [
     {provide: MatDialogRef, useValue: {}}

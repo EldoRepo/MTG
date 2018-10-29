@@ -8,21 +8,34 @@ export class FirebaseserviceService {
   constructor(private database: AngularFireDatabase) { }
 
   deleteCard(card: any): void {
-    this.database.object('/cards/' + card.uid).remove();
+    this.database.object('/Cards/' + card.uid).remove();
   }
   updateCard(card: any): any {
-    this.database.object('/cards/' + card.uid)
+    this.database.object('/Cards/' + card.uid)
     .update(card);
     return card;
   }
-  // getLibrary(libraryId: string) {
-  //   let library: any[] = [{}];
-  //   this.database.list('/cards').valueChanges().subscribe(cards => {
-  //     library = cards.filter(x => x.libraryId === libraryId);
-  //   });
-  //   return library;
-  // }
+  updatePlayer(player: any): any {
+    this.database.object('/players/' + player.playerid)
+    .update(player);
+    return player;
+  }
+  getEventLogs() {
+    // let events: any[] = [{}];
+    return this.database.list('/Eventlogs/eventLogs').valueChanges();
+  }
   getAllCards() {
-    return this.database.list('/cards').valueChanges();
+    return this.database.list('/Cards').valueChanges();
+  }
+  addEvent(event: string) {
+     // this.database.object('/Eventlogs/eventLogs/' + this.createGuid()).set(event);
+  }
+  createGuid() {
+      // return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      //     // tslint:disable-next-line:no-bitwise
+      //     const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      //     return v.toString(16);
+      // });
+      return 'hello';
   }
 }

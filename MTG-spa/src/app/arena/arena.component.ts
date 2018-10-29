@@ -14,10 +14,16 @@ import { MtgPlayer } from '../interfaces/player';
   providers: [FirebaseserviceService]
 })
 export class ArenaComponent implements OnInit {
-  public cards: any[];
-  opponentPlayer: MtgPlayer;
-  currentPlayer: MtgPlayer;
+  // public cards: any[];
+  timer: any;
+  public allCards: any[];
+  players: any[];
+  opponentPlayer: any = {playerId: 'none'};
+  currentPlayer: any = {playerId: 'none'};
   gameInstance: any;
+  eventLogs: any[];
+  firstInitialize = true;
+  initCount = 0;
   //
   libraryOne: any; // current player is always using library one
   libraryOneCards: any[]; //
@@ -38,38 +44,61 @@ export class ArenaComponent implements OnInit {
   constructor(
       private database: AngularFireDatabase, public dialog: MatDialog,
       public fireService: FirebaseserviceService) {
-        database.list('/cards').valueChanges()   // returns observable
-        .subscribe(list => {
-        this.cards = list;
-        console.log(this.cards);
-        this.libraryOneCards = this.cards.filter(x => x.location === 0);
-        this.creaturesOne = this.libraryOneCards.filter(x => x.location === 1);
-        this.enchantmentsOne = this.libraryOneCards.filter(x => x.location === 2);
-        this.landsOne = this.libraryOneCards.filter(x => x.location === 3);
-        this.handOne = this.libraryOneCards.filter(x => x.location === 4);
-        this.discardOne = this.libraryOneCards.filter(x => x.location === 5);
-        //
-        this.libraryTwoCards = this.cards.filter(x => x.location === 0);
-        this.creaturesTwo = this.libraryTwoCards.filter(x => x.location === 1);
-        this.enchantmentsTwo = this.libraryTwoCards.filter(x => x.location === 2);
-        this.landsTwo = this.libraryTwoCards.filter(x => x.location === 3);
-        this.handTwo = this.libraryTwoCards.filter(x => x.location === 4);
-        this.discardTwo = this.libraryTwoCards.filter(x => x.location === 5);
-        //
-     });
-     database.list('/Game').valueChanges()   // returns observable
+    database.list('/Eventlogs/eventlogs').valueChanges()   // returns observable
+      .subscribe(eventlogs => {
+      this.eventLogs = eventlogs;
+      console.log(this.eventLogs);
+      if (this.firstInitialize === true) {
+        this.initCount++;
+        this.firstInitSetup();
+      }
+    });
+    database.list('/Cards').valueChanges()
+    .subscribe(list => {
+      this.allCards = list;
+      if (this.firstInitialize === true) {
+        this.initCount++;
+        this.firstInitSetup();
+      } else {
+         this.setUpCards();
+      }
+    });
+    database.list('/players').valueChanges()   // returns observable
+      .subscribe(players => {
+      this.players = players;
+      console.log(this.players);
+      if (this.firstInitialize === true) {
+        this.currentPlayer = this.players[0];
+        this.opponentPlayer = this.players[1];
+        this.initCount++;
+        this.firstInitSetup();
+      } else {
+        this.currentPlayer = this.players.filter(x => x.playerid === this.currentPlayer.playerid)[0];
+        this.opponentPlayer = this.players.filter(x => x.playerid !== this.currentPlayer.playerid)[0];
+      }
+    });
+    database.list('/Game').valueChanges()   // returns observable
         .subscribe(game => {
         this.gameInstance = game;
+        console.log(this.gameInstance);
+        if (this.firstInitialize === true) {
+          this.initCount++;
+          this.firstInitSetup();
+        }
      });
   }
-
-  changeLibrary(selectedLibraryId: string) {
-    const selectedLibrary = this.gameInstance.libraries.filter(x => x.libraryId === selectedLibraryId);
-    const otherLibrary = this.gameInstance.libraries.filter(x => x.libraryId !== selectedLibraryId);
-    this.libraryOne = this.cards.filter(x => x.location === 0 && x.libraryId === selectedLibraryId);
-    this.libraryTwo = this.cards.filter(x => x.location === 0 && x.libraryId !== selectedLibraryId);
-    this.currentPlayer.currentLife = this.gameInstance.p1_life;
-    this.opponentPlayer.currentLife = this.gameInstance.p2_life;
+  firstInitSetup() {
+    if (this.firstInitialize === true && this.initCount > 3) {
+      this.currentPlayer = this.players[0];
+      this.opponentPlayer = this.players[1];
+      this.setUpCards();
+      this.firstInitialize = false;
+    }
+  }
+  changePlayer(selectedPlayerId: string) {
+    this.currentPlayer = this.players.filter(x => x.playerid === selectedPlayerId)[0];
+    this.opponentPlayer = this.players.filter(x => x.playerid !== selectedPlayerId)[0];
+    this.setUpCards();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -100,7 +129,16 @@ export class ArenaComponent implements OnInit {
       return 4;
     }
     if (containerId === 'cdk-drop-list-4') {
-      return 5;
+      return 1;
+    }
+    if (containerId === 'cdk-drop-list-5') {
+      return 2;
+    }
+    if (containerId === 'cdk-drop-list-6') {
+      return 3;
+    }
+    if (containerId === 'cdk-drop-list-7') {
+      return 4;
     }
   }
   isScroll(zoneNumber: number) {
@@ -136,7 +174,8 @@ export class ArenaComponent implements OnInit {
   startGame() {
   }
   drawCard() {
-    const cardsDrawn = this.libraryOneCards.slice(0, 1);
+    const cardLibrary: any[] = this.libraryOneCards;
+    const cardsDrawn = cardLibrary.slice(0, 1);
     cardsDrawn.forEach(x => x.location = 4);
     cardsDrawn.forEach(element => {
       this.fireService.updateCard(element);
@@ -146,28 +185,96 @@ export class ArenaComponent implements OnInit {
     //
   }
   drawHand() {
-    const cardsDrawn = this.cards.slice(0, 7);
+    const cardLibrary: any[] = this.libraryOneCards;
+    const cardsDrawn = cardLibrary.slice(0, 7);
     cardsDrawn.forEach(x => x.location = 4);
     cardsDrawn.forEach(element => {
       this.fireService.updateCard(element);
     });
+  }
+  hoveringOverCard(card: any) {
+    // const that = this;
+    // this.timer = setTimeout(function() {
+    //   that.viewCard(card);
+    // }, 3000);
+  }
+  hoverLeave() {
+    clearTimeout(this.timer);
   }
   viewCard(selectedCard: any) {
     const dialogRef = this.dialog.open(ViewCardComponent, {
       width: '400px',
       data: selectedCard
     });
+    this.setUpCards();
   }
-  viewCards(cardSet: number) {
+  addEvent(event: string) {
+    this.fireService.addEvent(event);
+  }
+  viewCards(type: number, cardSet: number) {
     let cards: any[];
     if (cardSet === 1) {
-      cards = this.libraryOne;
+      if (type === 0) {
+        cards = this.libraryOneCards;
+      } else {
+        cards = this.discardOne;
+      }
     } else {
-      cards = this.libraryTwo;
+      if (type === 0) {
+        cards = this.libraryTwoCards;
+      } else {
+        cards = this.discardTwo;
+      }
     }
     const dialogRef = this.dialog.open(ViewCardsComponent, {
       width: '300px',
       data: cards
     });
+  }
+  setUpCards() {
+    const currentPlayerSet: MtgPlayer = this.players.filter(x => x.playerid === this.currentPlayer.playerid)[0];
+    const opponentPlayerSet: MtgPlayer = this.players.filter(x => x.playerid !== this.currentPlayer.playerid)[0];
+    const libraryOneSet = this.allCards.filter(x => x.libraryid === currentPlayerSet.libraryid);
+    const libraryTwoSet = this.allCards.filter(x => x.libraryid === opponentPlayerSet.libraryid);
+    //
+    console.log('here are cards');
+    this.libraryOneCards = libraryOneSet.filter(x => x.location === 0); // current player is always using library one
+    this.creaturesOne = libraryOneSet.filter(x => x.location === 1);
+    this.enchantmentsOne = libraryOneSet.filter(x => x.location === 2);
+    this.landsOne = libraryOneSet.filter(x => x.location === 3);
+    this.handOne = libraryOneSet.filter(x => x.location === 4);
+    this.discardOne = libraryOneSet.filter(x => x.location === 5);
+    //
+    this.libraryTwoCards = libraryTwoSet.filter(x => x.location === 0); // opponent player is always using library two
+    this.creaturesTwo = libraryTwoSet.filter(x => x.location === 1);
+    this.enchantmentsTwo = libraryTwoSet.filter(x => x.location === 2);
+    this.landsTwo = libraryTwoSet.filter(x => x.location === 3);
+    this.handTwo = libraryTwoSet.filter(x => x.location === 4);
+    this.discardTwo = libraryTwoSet.filter(x => x.location === 5);
+    //
+    console.log(this.handOne);
+    console.log(this.libraryOneCards);
+    console.log(this.libraryTwoCards);
+  }
+  increaseLife(player: number) {
+    let selectedPlayer: any = {};
+    if (player === 1) { // current player
+      selectedPlayer = this.players.filter(x => x.playerid === this.currentPlayer.playerid)[0];
+    } else {
+      selectedPlayer = this.players.filter(x => x.playerid !== this.currentPlayer.playerid)[0];
+    }
+    selectedPlayer.life += 1;
+    this.fireService.updatePlayer(selectedPlayer);
+  }
+  decreaseLife(player: number) {
+    console.log(player);
+    let selectedPlayer: any = {};
+    if (player === 1) { // current player
+      selectedPlayer = this.players.filter(x => x.playerid === this.currentPlayer.playerid)[0];
+    } else {
+      selectedPlayer = this.players.filter(x => x.playerid !== this.currentPlayer.playerid)[0];
+    }
+    selectedPlayer.life -= 1;
+    this.fireService.updatePlayer(selectedPlayer);
   }
 }

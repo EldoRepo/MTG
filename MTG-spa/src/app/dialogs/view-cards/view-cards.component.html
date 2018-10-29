@@ -3,37 +3,38 @@
     <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
   </mat-list-item>
 </mat-list> -->
-<h2>Viewing Library</h2>
-<hr/>
-<mat-form-field>
-  <mat-select placeholder="Options">
-    <mat-option [value]="food.value">
-      Do Nothing
-    </mat-option>
-    <mat-option [value]="food.value">
-      Move To Hand
-    </mat-option>
-    <mat-option [value]="food.value">
-      Move To Discard
-    </mat-option>
-    <mat-option [value]="food.value">
-      Move To Creatures
-    </mat-option>
-    <mat-option [value]="food.value">
-      Move To Items / Enchantments
-    </mat-option>
-    <mat-option [value]="food.value">
-      Move To Opponents Field
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<hr/>
-<div *ngFor="let card of cards">
-    <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
+<div style="max-height: 800px; overflow: scroll;">
+    <h2>View Cards</h2>
+    <hr/>
     <mat-form-field>
-      <button mat-button (click)="execute(card)">Execute</button>
+      <mat-select name="company" placeholder="Select Your Company" [(ngModel)]="company" #companyValue>
+        <mat-option [value]="0">
+          Do Nothing
+        </mat-option>
+        <mat-option [value]="4">
+          Move To Hand
+        </mat-option>
+        <mat-option [value]="5">
+          Move To Discard
+        </mat-option>
+        <mat-option [value]="1">
+          Move To Creatures
+        </mat-option>
+        <mat-option [value]="2">
+          Move To Items / Enchantments
+        </mat-option>
+        <mat-option [value]="1">
+          Move To Opponents Field
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+    <hr/>
+    <div *ngFor="let card of cards">
+        <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
+          <button mat-button (click)="moveCard(card)">Execute</button>
+    </div>
 </div>
+
 
 
 

@@ -1,4 +1,6 @@
 export interface MtgPlayer {
-    currentLife: number;
-    libraryId: string;
+    libraryid: string;
+    life: string;
+    playerid: string;
+    poison_counters: number;
 }
