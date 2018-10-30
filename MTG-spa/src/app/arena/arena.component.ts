@@ -212,8 +212,6 @@ export class ArenaComponent implements OnInit {
     if (location === CardLocation.Hand || location === CardLocation.Discard || location === CardLocation.Library) {
       card.tapped = 0;
       card.counter = 0;
-    }
-    if (location === 5) {
       if (card.type.toLowerCase() === 'token') {
         this.fireService.deleteCard(card);
         card = null;
