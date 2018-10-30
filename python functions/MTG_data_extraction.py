@@ -69,7 +69,6 @@ def createplayer(deck):
                     }
     return(playerproperties)
 
-
 def create_game(decks):
 
     gameid=str(bson.objectid.ObjectId())
@@ -122,7 +121,6 @@ def add_card_to_collection(db,card):
 def tcg_return_price():
 
     url = "http://api.tcgplayer.com/v1.5.0/catalog/categories"
-
     response = requests.request("GET", url)
 
     return(response.text)
@@ -154,6 +152,13 @@ def parse_set(mtgset):
     return(post)
 
 def parse_card(mtgcard):
+####best effort, itterate through cards to try to find an image
+    if mtgcard.image_url == None:
+        cards=Card.where(name=mtgcard.name).all()
+        for i in range(len(cards)):
+            if cards[i].image_url!=None:
+                mtgcard=cards[i]
+                break
 
     post = {"name": mtgcard.name,
             "multiverse_id": mtgcard.multiverse_id,
@@ -219,36 +224,11 @@ def insert_sets(db,sets):
 ###### passing collections from mongodb to firebase
 
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
 
     ####GET ALL CARDS FROM MTGDSK API
-        #cards=Card.all()
-        #cards=SET.all()
-##connect to local db
- #   client = MongoClient('localhost', 27017)
- #   masterdb = client['MTG_CARDS'].cards
-  #  targetdb=client['MTG_CARDS'].test_deck
-###upload all card from mtgsdk and inser to database
-    #cards = Card.all()
-    cards = Card.where(set='ktk').where(subtypes='warrior,human').all()
-    #insert_to_mongo_collection(masterdb,cards)
-   # insert_firebase(cards)
-    #card = get_card(collection,'Chivalrous Chevalier')
-   # collection_config={
-
-    #        'Sen Triplets':1,
-     #       'Swamp':20,
-      #      'Island':20,
-       #     'Plains':20,
-    #}
-
-
-#create_collection(collection_config,masterdb,targetdb)
-#decklist=[]
-#for i in targetdb.find():
-#        decklist.append(i)
-
-#mydeck=clean_collection(decklist)
-#mydeck=add_gameplay_properties(decklist)
-#serve_firebase(mydeck)
-
+    cards=Card.all()
+    client = MongoClient('localhost', 27017)
+    masterdb = client['MTG_CARDS'].cards
+    insert_to_mongo_collection(masterdb,cards)
+  
