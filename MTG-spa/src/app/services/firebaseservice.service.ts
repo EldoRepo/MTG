@@ -16,11 +16,15 @@ export class FirebaseserviceService {
     return card;
   }
   addCard(card: any) {
-    card.uid = this.createGuid;
+    card.uid = this.createGuid();
     this.database.object('/Cards/' + card.uid).set(card);
   }
-  updateCardCounter(card: any) {
-    card.counter += 1;
+  updateCardCounter(card: any, add: boolean) {
+    if(add){
+      card.counter += 1;
+    }else{
+      card.counter -= 1;
+    }
     this.updateCard(card);
   }
   updatePlayer(player: any): any {

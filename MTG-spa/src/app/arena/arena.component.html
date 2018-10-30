@@ -130,7 +130,12 @@
                     </mat-select>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="1">
-                    <button mat-stroked-button color="primary" (click)="resetGame()">Reset Game</button>
+                        <button mat-button [matMenuTriggerFor]="menu">Game Menu</button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="createToken()">Create Token</button>
+                            <button mat-menu-item (click)="switchLibrary()">Switch Library</button>
+                            <button mat-menu-item (click)="resetGame()">Reset Game</button>
+                        </mat-menu>
                 </mat-grid-tile>
                 <!-- <mat-grid-tile [colspan]="4" [rowspan]="2">
                     <div style="overflow-y: auto;">
@@ -157,7 +162,6 @@
                             <button mat-flat-button color="primary" (click)="viewCards(0, 1)">View Library</button>
                             <button mat-flat-button color="primary" (click)="shuffleLibrary(1)">Shuffle Library</button>
                             <button mat-flat-button color="primary" (click)="drawCard()">Draw Card</button>
-                            <button mat-flat-button color="primary" (click)="createToken()">Create Token</button>
                             <br/>
                             <i style="color: white;">count: {{ libraryOneCards?.length }}</i>
                         </div>
