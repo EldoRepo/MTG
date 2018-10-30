@@ -21,8 +21,9 @@ if __name__ == "__main__":
     client = MongoClient('localhost', 27017)
     masterdb = client['MTG_CARDS'].cards
     targetdb=client['MTG_CARDS'].Sig
+    targetdb2=client['MTG_CARDS'].Grenzo
 
-    sig={       
+    Sig={       
                 'Sygg, River Guide':1,
                 'Acquire':1,
                 'Ajani, Caller of the Pride':1,
@@ -117,8 +118,82 @@ if __name__ == "__main__":
                 'Winding Canyons':1,
         }
 
+    Grenzo={
+                'Battle Squadron':1,
+                'Beetleback Chief':1,
+                'Boggart Birth Rite':1,
+                'Boggart Harbinger':1,
+                'Boggart Mob':1,
+                'Boggart Shenanigans':1,
+                'Caterwauling Boggart':1,
+                'Command Tower':1,
+                'Dragon Fodder':1,
+                'Dragonskull Summit':1,
+                'Empty the Warrens':1,
+                'Fodder Launch':1,
+                'Foundry Street Denizen':1,
+                'Frogtosser Banneret':1,
+                'Gempalm Incinerator':1,
+                'Goblin Chieftain':1,
+                'Goblin Diplomats':1,
+                'Goblin Grenade':1,
+                'Goblin King':1,
+                'Goblin Lackey':1,
+                'Goblin Matron':1,
+                'Goblin Piledriver':1,
+                'Goblin Rabblemaster':1,
+                'Goblin Ringleader':1,
+                'Goblin Sledder':1,
+                'Goblin Spymaster':1,
+                'Goblin Warchief':1,
+                'Goblin Welder':1,
+                'Graven Cairns':1,
+                'Grenzo, Dungeon Warden':1,
+                'Grenzo, Havoc Raiser':1,
+                'Heartstone':1,
+                'Horde of Boggarts':1,
+                'Hordeling Outburst':1,
+                'Ib Halfheart, Goblin Tactician':1,
+                'Ignition Team':1,
+                'Impact Tremors':1,
+                'Kiki-Jiki, Mirror Breaker':1,
+                'Knucklebone Witch':1,
+                'Krenko, Mob Boss':1,
+                'Legion Loyalist':1,
+                'Lightning Crafter':1,
+                'Lightning Greaves':1,
+                'Mad Auntie':1,
+                'Mana Echoes':1,
+                'Mindmoil':1,
+                'Mogg War Marshal':1,
+                'Mountain':14,
+                'Murderous Redcap':1,
+                'Outrage Shaman':1,
+                'Pyrewild Shaman':1,
+                'Rakdos Carnarium':1,
+                'Reckless One':1,
+                'Reito Lantern':1,
+                'Sensation Gorger':1,
+                'Shadowblood Ridge':1,
+                'Siege-Gang Commander':1,
+                'Skirk Fire Marshal':1,
+                'Skirk Prospector':1,
+                'Smoldering Marsh':1,
+                'Sol Ring':1,
+                'Spike Jester':1,
+                'Squeaking Pie Grubfellows':1,
+                'Swamp':14,
+                'Tuktuk the Explorer':1,
+                'Vial Smasher the Fierce':1,
+                'Warren Instigator':1,
+                'Warren Pilferers':1,
+                'Warren Weirding':1,
+                'Weirding Shaman':1,
+                'Wort, Boggart Auntie':1,
+        }
+    mydeck=MTG.create_collection(Sig,masterdb,targetdb)
+    mydeck2=MTG.create_collection(Grenzo,masterdb,targetdb2)
 
-    #mydeck=MTG.create_collection(sig,masterdb,targetdb)
     #decklist=[]
     #for i in targetdb.find():
     #    decklist.append(i)
@@ -126,7 +201,7 @@ if __name__ == "__main__":
     #mydeck=MTG.clean_collection(decklist)
     #mydeck=MTG.add_gameplay_properties(decklist)
 
-    card=MTG.get_card_by_field(masterdb,'name','Capsize')
+    #card=MTG.get_card_by_field(masterdb,'name','Capsize')
     #cards_to_add=['Sensei\'s Divinging Top','Teferi\'s Puzzle Box','Darksteel Citadel']
     #for i in cards_to_add:
      #   MTG.add_card_to_collection(targetdb,MTG.get_card_by_field(masterdb,'name',i))
