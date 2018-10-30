@@ -146,6 +146,16 @@ export class ArenaComponent implements OnInit {
       }
     });
   }
+  shuffleGraveyardIntoLibrary(cardSet: number) {
+    if (cardSet === 1) { // current player.
+      const discarded = this.discardOne; // set discarded cards location
+      discarded.forEach(x => {
+        x.location = CardLocation.Library;
+        this.fireService.updateCard(x);
+      });
+      this.shuffleLibrary(1);
+    }
+  }
   drop(event: CdkDragDrop<string[]>) {
     console.log(event);
     const movedCard = event.previousContainer.data[event.previousIndex];
@@ -228,6 +238,7 @@ export class ArenaComponent implements OnInit {
       card.tapped = 0;
     }
     this.fireService.updateCard(card);
+    this.dialog.closeAll();
   }
   ngOnInit() {
   }
