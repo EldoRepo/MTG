@@ -32,7 +32,7 @@ import {
     MatSelectModule,
     MatListModule,
     MatBadgeModule,
-    MatInputModule
+    MatInputModule,
   ],
   exports: [
     MatButtonModule,

@@ -111,11 +111,18 @@ export class ArenaComponent implements OnInit {
     this.setUpCards();
     this.addEvent('Player has changed players');
   }
+  switchLibrary() {
+    // this.opponentPlayer = this.players.filter(x => x.playerid === this.currentPlayer.libraryid)[0];
+    // this.currentPlayer = this.players.filter(x => x.playerid !== this.currentPlayer.libraryid)[0];
+    this.setUpCards();
+    this.addEvent('Player has changed players');
+  }
   resetGame() {
     const allCards = this.allCards;
     allCards.forEach(x => {
       x.tapped = 0;
       x.location = 0;
+      x.counter = 0;
       if (x.type === 'token') {
         this.fireService.deleteCard(x);
       } else {
@@ -351,7 +358,7 @@ export class ArenaComponent implements OnInit {
     );
     this.addEvent('Player has shuffled library');
   }
-  updateCardCounter(card: any) {
-    this.fireService.updateCardCounter(card); // increases
-  }
+  // updateCardCounter(card: any) {
+  //   this.fireService.updateCardCounter(card); // increases
+  // }
 }

@@ -6,8 +6,11 @@
   <p>Type: {{card.type}}</p>
   <p>Power: {{card.power}}</p>
   <p>Toughness: {{card.toughness}}</p>
+  <p>Counters: {{card.counter}}</p>
   <p>{{card.text}}</p>
   <br/>
   <p><i>{{card.flavor}}</i></p>
+  <button mat-stroked-button (click)="addCounter()">Add Counter</button>
+  <button mat-stroked-button (click)="subtractCounter()">Subtract Counter</button>
 </div>
 

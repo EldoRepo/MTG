@@ -3,11 +3,14 @@
     <img mat-card-image [src]="card.image" alt="Photo of a Card" width="200px" height="200px">
   </mat-list-item>
 </mat-list> -->
-<div style="max-height: 800px; overflow: scroll;">
+<div style="max-height: 800px;overflow: scroll;">
     <h2>View Cards</h2>
     <hr/>
     <mat-form-field>
-      <mat-select name="company" placeholder="Select Your Company" [(ngModel)]="company" #companyValue>
+        <input matInput placeholder="Card Filter" name="cardFilter" [(ngModel)]="cardFilter" #cardFilterInput (input)="onSearchChange($event.target.value)">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select name="company" placeholder="Select Action" [(ngModel)]="company" #companyValue>
         <mat-option [value]="0">
           Do Nothing
         </mat-option>
@@ -29,9 +32,10 @@
       </mat-select>
     </mat-form-field>
     <hr/>
-    <div *ngFor="let card of cards">
+    <div *ngFor="let card of tempCards">
         <div fxFlex="70%">
-        <img mat-card-image [src]="card.image" alt="Missing Photo |" width="200px" height="200px">
+        <img mat-card-image [src]="card.image" alt="Missing Photo |" width="200px" height="200px"
+        onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';">
         </div>
         <div fxFlex="20%">
             {{card.name}}
