@@ -20,7 +20,7 @@ export class ViewCardsComponent implements OnInit {
   }
   onSearchChange(value: string) {
     this.tempCards = this.cards;
-    this.tempCards = this.tempCards.filter(x=>x.name.toLowerCase().includes(value.toLowerCase()));
+    this.tempCards = this.tempCards.filter(x => x.name.toLowerCase().includes(value.toLowerCase()));
   }
   onClose(): void {
     this.dialog.closeAll();

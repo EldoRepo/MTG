@@ -15,6 +15,7 @@ import {
   MatListModule,
   MatBadgeModule,
   MatInputModule,
+  MatRippleModule
 } from '@angular/material';
 
 @NgModule({
@@ -33,6 +34,7 @@ import {
     MatListModule,
     MatBadgeModule,
     MatInputModule,
+    MatRippleModule
   ],
   exports: [
     MatButtonModule,
@@ -48,7 +50,8 @@ import {
     MatSelectModule,
     MatListModule,
     MatBadgeModule,
-    MatInputModule
+    MatInputModule,
+    MatRippleModule
   ]
 })
 export class CustomMaterialModule {}
