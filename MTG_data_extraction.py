@@ -198,17 +198,6 @@ def parse_card(mtgcard):
 
     return(post)
 
-def insert_firebase(cards):
-    try:
-        for i in cards:
-                card=parse_card(i)
-                name=card['name']
-                r=requests.put('https://mtggame-b3e32.firebaseio.com/cards/'+name+'.json',json.dumps(card))
-                #print(r)    
-    except:
-        raise
-    return()
-
 def insert_to_mongo_collection(db,cards):
     try:
         for i in cards:
@@ -241,7 +230,7 @@ def insert_sets(db,sets):
   #  targetdb=client['MTG_CARDS'].test_deck
 ###upload all card from mtgsdk and inser to database
     #cards = Card.all()
-    #cards = Card.where(set='ktk').where(subtypes='warrior,human').all()
+    cards = Card.where(set='ktk').where(subtypes='warrior,human').all()
     #insert_to_mongo_collection(masterdb,cards)
    # insert_firebase(cards)
     #card = get_card(collection,'Chivalrous Chevalier')

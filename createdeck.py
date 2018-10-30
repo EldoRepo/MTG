@@ -118,15 +118,15 @@ if __name__ == "__main__":
         }
 
 
-    mydeck=MTG.create_collection(sig,masterdb,targetdb)
-    decklist=[]
-    for i in targetdb.find():
-        decklist.append(i)
+    #mydeck=MTG.create_collection(sig,masterdb,targetdb)
+    #decklist=[]
+    #for i in targetdb.find():
+    #    decklist.append(i)
 
-    mydeck=MTG.clean_collection(decklist)
-    mydeck=MTG.add_gameplay_properties(decklist)
+    #mydeck=MTG.clean_collection(decklist)
+    #mydeck=MTG.add_gameplay_properties(decklist)
 
-
+    card=MTG.get_card_by_field(masterdb,'name','Capsize')
     #cards_to_add=['Sensei\'s Divinging Top','Teferi\'s Puzzle Box','Darksteel Citadel']
     #for i in cards_to_add:
      #   MTG.add_card_to_collection(targetdb,MTG.get_card_by_field(masterdb,'name',i))
