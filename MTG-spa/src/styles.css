@@ -6,6 +6,55 @@
     -webkit-transform: rotate(30deg); /* Safari */
     transform: rotate(30deg); /* Standard syntax */
 }
+.flipDivOneEight {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
 .mtgScrollRow {
     overflow-x:scroll;
+}
+html {
+    height: 100%;
+}
+body {
+    height: 97%;
+}
+
+.fullBackgroundRocks { 
+    /* The image used */
+    background-image: url("https://cascadeconcreteaccessories.com/wp-content/uploads/2017/05/25f9c7_59e4cde6cc294086ac0ed429c88b97a9-mv2_d_2751_2750_s_4_2.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.fullBlackBackground { 
+    background-color: #404040;
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parentImageDiv {
+    overflow: hidden;
+}
+  
+.imgItself {
+width: 100%;
+height: auto;
+}
+
+.blackBackground {
+    background-color: #404040;
 }

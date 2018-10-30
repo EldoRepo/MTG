@@ -28,7 +28,7 @@ export class CreateTokenComponent implements OnInit {
       toughness: this.toughness,
       power: this.power,
       libraryid: this.libraryid,
-      image: 'https://pbs.twimg.com/media/DHicdfIXgAEhkhm.jpg',
+      image: 'https://mtgcardsmith.com/view/complete/full/2018/9/23/1537713309526077.png',
       location: 1,
       counter: 0
     };

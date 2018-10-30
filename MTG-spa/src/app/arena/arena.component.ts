@@ -7,6 +7,18 @@ import { ViewCardComponent } from '../dialogs/view-card/view-card.component';
 import { ViewCardsComponent } from '../dialogs/view-cards/view-cards.component';
 import { MtgPlayer } from '../interfaces/player';
 import { CreateTokenComponent } from '../dialogs/create-token/create-token.component';
+import { CardlibraryComponent } from '../cardlibrary/cardlibrary.component';
+
+enum CardLocation {
+  Library,
+  Creature,
+  Enchantment,
+  Land,
+  Hand,
+  Discard,
+  Exile,
+  CommandZone
+}
 
 @Component({
   selector: 'app-arena',
@@ -26,6 +38,8 @@ export class ArenaComponent implements OnInit {
   firstInitialize = true;
   initCount = 0;
   //
+  exiledCards: any;
+  //
   libraryOne: any; // current player is always using library one
   libraryOneCards: any[]; //
   creaturesOne: any[];
@@ -33,6 +47,7 @@ export class ArenaComponent implements OnInit {
   landsOne: any[];
   handOne: any[];
   discardOne: any[];
+  commandOne: any[];
   //
   libraryTwo: any; // opponent player is always using library two
   libraryTwoCards: any[];
@@ -41,6 +56,7 @@ export class ArenaComponent implements OnInit {
   landsTwo: any[];
   handTwo: any[];
   discardTwo: any[];
+  commandTwo: any[];
 
   constructor(
       private database: AngularFireDatabase, public dialog: MatDialog,
@@ -147,34 +163,34 @@ export class ArenaComponent implements OnInit {
   }
   getLocationId(containerId: string) {
     if (containerId === 'cdk-drop-list-0') {
-      return 1;
+      return CardLocation.Hand;
     }
     if (containerId === 'cdk-drop-list-1') {
-      return 2;
+      return CardLocation.Land;
     }
     if (containerId === 'cdk-drop-list-2') {
-      return 3;
+      return CardLocation.Enchantment;
     }
     if (containerId === 'cdk-drop-list-3') {
-      return 4;
+      return CardLocation.Creature;
     }
     if (containerId === 'cdk-drop-list-4') {
-      return 1;
+       return CardLocation.Creature;
     }
     if (containerId === 'cdk-drop-list-5') {
-      return 2;
+       return CardLocation.Enchantment;
     }
     if (containerId === 'cdk-drop-list-6') {
-      return 3;
+      return CardLocation.Land;
     }
     if (containerId === 'cdk-drop-list-7') {
-      return 4;
+      return CardLocation.Hand;
     }
     if (containerId === 'cdk-drop-list-8') {
-      return 0;
+      return CardLocation.Library;
     }
     if (containerId === 'cdk-drop-list-9') {
-      return 5;
+      return CardLocation.Discard;
     }
   }
   isScroll(zoneNumber: number) {
@@ -193,10 +209,19 @@ export class ArenaComponent implements OnInit {
   }
   moveCard(card: any, location: number) {
     card.location = location;
-    if(location === 4) {
+    if (location === CardLocation.Hand || location === CardLocation.Discard || location === CardLocation.Library) {
       card.tapped = 0;
+      card.counter = 0;
     }
-    this.fireService.updateCard(card);
+    if (location === 5) {
+      if (card.type.toLowerCase() === 'token') {
+        this.fireService.deleteCard(card);
+        card = null;
+      }
+    }
+    if (card != null) {
+      this.fireService.updateCard(card);
+    }
   }
   tapCard(card: any) {
     if (card.tapped === 0) {
@@ -287,25 +312,23 @@ export class ArenaComponent implements OnInit {
     const opponentPlayerSet: MtgPlayer = this.players.filter(x => x.playerid !== this.currentPlayer.playerid)[0];
     const libraryOneSet = this.allCards.filter(x => x.libraryid === currentPlayerSet.libraryid);
     const libraryTwoSet = this.allCards.filter(x => x.libraryid === opponentPlayerSet.libraryid);
+    this.exiledCards = this.allCards.filter(x => x.location === CardLocation.Exile);
     //
-    console.log('here are cards');
-    this.libraryOneCards = libraryOneSet.filter(x => x.location === 0); // current player is always using library one
-    this.creaturesOne = libraryOneSet.filter(x => x.location === 1);
-    this.enchantmentsOne = libraryOneSet.filter(x => x.location === 2);
-    this.landsOne = libraryOneSet.filter(x => x.location === 3);
-    this.handOne = libraryOneSet.filter(x => x.location === 4);
-    this.discardOne = libraryOneSet.filter(x => x.location === 5);
+    this.libraryOneCards = libraryOneSet.filter(x => x.location === CardLocation.Library); // current player is always using library one
+    this.creaturesOne = libraryOneSet.filter(x => x.location === CardLocation.Creature);
+    this.enchantmentsOne = libraryOneSet.filter(x => x.location === CardLocation.Enchantment);
+    this.landsOne = libraryOneSet.filter(x => x.location === CardLocation.Land);
+    this.handOne = libraryOneSet.filter(x => x.location === CardLocation.Hand);
+    this.discardOne = libraryOneSet.filter(x => x.location === CardLocation.Discard);
+    this.commandOne = libraryOneSet.filter(x => x.location === CardLocation.CommandZone);
     //
-    this.libraryTwoCards = libraryTwoSet.filter(x => x.location === 0); // opponent player is always using library two
-    this.creaturesTwo = libraryTwoSet.filter(x => x.location === 1);
-    this.enchantmentsTwo = libraryTwoSet.filter(x => x.location === 2);
-    this.landsTwo = libraryTwoSet.filter(x => x.location === 3);
-    this.handTwo = libraryTwoSet.filter(x => x.location === 4);
-    this.discardTwo = libraryTwoSet.filter(x => x.location === 5);
-    //
-    console.log(this.handOne);
-    console.log(this.libraryOneCards);
-    console.log(this.libraryTwoCards);
+    this.libraryTwoCards = libraryTwoSet.filter(x => x.location === CardLocation.Library); // opponent player is always using library two
+    this.creaturesTwo = libraryTwoSet.filter(x => x.location === CardLocation.Creature);
+    this.enchantmentsTwo = libraryTwoSet.filter(x => x.location === CardLocation.Enchantment);
+    this.landsTwo = libraryTwoSet.filter(x => x.location === CardLocation.Land);
+    this.handTwo = libraryTwoSet.filter(x => x.location === CardLocation.Hand);
+    this.discardTwo = libraryTwoSet.filter(x => x.location === CardLocation.Discard);
+    this.commandTwo = libraryTwoSet.filter(x => x.location === CardLocation.CommandZone);
   }
   increaseLife(player: number) {
     let selectedPlayer: any = {};
