@@ -1,208 +1,26 @@
 
 import MTG_data_extraction as MTG
-from mtgsdk import Set
-from mtgsdk import Card
-from mtgsdk import Type
-from mtgsdk import Supertype
-from mtgsdk import Subtype
-from mtgsdk import Changelog
 import pymongo
 from pymongo import MongoClient
-import requests
-import json
-import bson
-import urllib3 as urllib
-import pandas as pd
+import argparse
 
 
+######## need to be able to passs a list of the deck as well as the name for the deck
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Create a new MTG deck')
+    parser.add_argument('--D', metavar='--Deck', required=True,
+                        help='the decklist file/object')
+    parser.add_argument('--N', metavar='--Name', required=True,
+                        help='The new deck name')
+    args = parser.parse_args()
+
+    with open(ard.D, 'rb') as input:
+        data = pickle.load(input)
+
 
     client = MongoClient('localhost', 27017)
-    masterdb = client['MTG_CARDS'].cards
-    targetdb=client['MTG_CARDS'].Sig
-    targetdb2=client['MTG_CARDS'].Grenzo
-
-    Sig={       
-                'Sygg, River Guide':1,
-                'Acquire':1,
-                'Ajani, Caller of the Pride':1,
-                'Aquitect\'s Will':1,
-                'Austere Command':1,
-                'Azorius Chancery':1,
-                'Azorius Signet':1,
-                'Bant Panorama':1,
-                'Calciform Pools':1,
-                'Capsize':1,
-                'Clone':1,
-                'Coastal Tower':1,
-                'Coat of Arms':1,
-                'Condemn':1,
-                'Crib Swap':1,
-                'Cryptic Command':1,
-                'Deepchannel Mentor':1,
-                'Dismantling Blow':1,
-                'Distant Melody':1,
-                'Diviner\'s Wand':1,
-                'Dominating Licid':1,
-                'Door of Destinies':1,
-                'Drowner of Secrets':1,
-                'Enlightened Tutor':1,
-                'Esper Panorama':1,
-                'Faerie Conclave':1,
-                'Fallowsage':1,
-                'Followed Footsteps':1,
-                'Glen Elendra Archmage':1,
-                'Hallowed Fountain':1,
-                'Harpoon Sniper':1,
-                'Hinder':1,
-                'Infinite Reflection':1,
-                'Intruder Alarm':1,
-                'Inundate':1,
-                'Island':10,
-                'Jace Beleren':1,
-                'Judge of Currents':1,
-                'Lord of Atlantis':1,
-                'Lullmage Mentor':1,
-                'Merrow Commerce':1,
-                'Merrow Harbinger':1,
-                'Merrow Reejerey':1,
-                'Mind Stone':1,
-                'Mind\'s Eye':1,
-                'Mirror Entity':1,
-                'Mistveil Plains':1,
-                'Mystical Tutor':1,
-                'Nimbus Maze':1,
-                'Oblivion Ring':1,
-                'Ocular Halo':1,
-                'Paradise Mantle':1,
-                'Plains':5,
-                'Prahv, Spires of Order':1,
-                'Quicksilver Fountain':1,
-                'Reliquary Tower':1,
-                'Rhystic Study':1,
-                'Rite of Replication':1,
-                'Rootwater Hunter':1,
-                'Rootwater Thief':1,
-                'Sage of Fables':1,
-                'Sage\'s Dousing':1,
-                'Sea Scryer':1,
-                'Seahunter':1,
-                'Seal of Cleansing':1,
-                'Seasinger':1,
-                'Sigil Tracer':1,
-                'Silvergill Adept':1,
-                'Sky Hussar':1,
-                'Sol Ring':1,
-                'Spin into Myth':1,
-                'Stonybrook Banneret':1,
-                'Stonybrook Schoolmaster':1,
-                'Streambed Aquitects':1,
-                'Summon the School':1,
-                'Surgespanner':1,
-                'Sygg, River Guide':1,
-                'Teferi\'s Moat':1,
-                'Teferi, Mage of Zhalfir':1,
-                'Terramorphic Expanse':1,
-                'Tidal Warrior':1,
-                'Tideshaper Mystic':1,
-                'Sharding Sphinx':1,
-                'Vivid Creek':1,
-                'Vivid Meadow':1,
-                'Voidmage Prodigy':1,
-                'Wake Thrasher':1,
-                'Wanderwine Hub':1,
-                'Wanderwine Prophets':1,
-                'Wash Out':1,
-                'Windbrisk Heights':1,
-                'Winding Canyons':1,
-        }
-
-    Grenzo={
-                'Battle Squadron':1,
-                'Beetleback Chief':1,
-                'Boggart Birth Rite':1,
-                'Boggart Harbinger':1,
-                'Boggart Mob':1,
-                'Boggart Shenanigans':1,
-                'Caterwauling Boggart':1,
-                'Command Tower':1,
-                'Dragon Fodder':1,
-                'Dragonskull Summit':1,
-                'Empty the Warrens':1,
-                'Fodder Launch':1,
-                'Foundry Street Denizen':1,
-                'Frogtosser Banneret':1,
-                'Gempalm Incinerator':1,
-                'Goblin Chieftain':1,
-                'Goblin Diplomats':1,
-                'Goblin Grenade':1,
-                'Goblin King':1,
-                'Goblin Lackey':1,
-                'Goblin Matron':1,
-                'Goblin Piledriver':1,
-                'Goblin Rabblemaster':1,
-                'Goblin Ringleader':1,
-                'Goblin Sledder':1,
-                'Goblin Spymaster':1,
-                'Goblin Warchief':1,
-                'Goblin Welder':1,
-                'Graven Cairns':1,
-                'Grenzo, Dungeon Warden':1,
-                'Grenzo, Havoc Raiser':1,
-                'Heartstone':1,
-                'Horde of Boggarts':1,
-                'Hordeling Outburst':1,
-                'Ib Halfheart, Goblin Tactician':1,
-                'Ignition Team':1,
-                'Impact Tremors':1,
-                'Kiki-Jiki, Mirror Breaker':1,
-                'Knucklebone Witch':1,
-                'Krenko, Mob Boss':1,
-                'Legion Loyalist':1,
-                'Lightning Crafter':1,
-                'Lightning Greaves':1,
-                'Mad Auntie':1,
-                'Mana Echoes':1,
-                'Mindmoil':1,
-                'Mogg War Marshal':1,
-                'Mountain':14,
-                'Murderous Redcap':1,
-                'Outrage Shaman':1,
-                'Pyrewild Shaman':1,
-                'Rakdos Carnarium':1,
-                'Reckless One':1,
-                'Reito Lantern':1,
-                'Sensation Gorger':1,
-                'Shadowblood Ridge':1,
-                'Siege-Gang Commander':1,
-                'Skirk Fire Marshal':1,
-                'Skirk Prospector':1,
-                'Smoldering Marsh':1,
-                'Sol Ring':1,
-                'Spike Jester':1,
-                'Squeaking Pie Grubfellows':1,
-                'Swamp':14,
-                'Tuktuk the Explorer':1,
-                'Vial Smasher the Fierce':1,
-                'Warren Instigator':1,
-                'Warren Pilferers':1,
-                'Warren Weirding':1,
-                'Weirding Shaman':1,
-                'Wort, Boggart Auntie':1,
-        }
-    mydeck=MTG.create_collection(Sig,masterdb,targetdb)
-    mydeck2=MTG.create_collection(Grenzo,masterdb,targetdb2)
-
-    #decklist=[]
-    #for i in targetdb.find():
-    #    decklist.append(i)
-
-    #mydeck=MTG.clean_collection(decklist)
-    #mydeck=MTG.add_gameplay_properties(decklist)
-
-    #card=MTG.get_card_by_field(masterdb,'name','Capsize')
-    #cards_to_add=['Sensei\'s Divinging Top','Teferi\'s Puzzle Box','Darksteel Citadel']
-    #for i in cards_to_add:
-     #   MTG.add_card_to_collection(targetdb,MTG.get_card_by_field(masterdb,'name',i))
-    #MTG.serve_firebase(mydeck)
+    masterdb = client['MTG_CARDS']['cards']
+    targetdb=client['MTG_CARDS'][args.N]
+    
+    mydeck=MTG.create_collection(data,masterdb,targetdb)

@@ -28,6 +28,8 @@ enum CardLocation {
 })
 export class ArenaComponent implements OnInit {
   // public cards: any[];
+  justTappedTimer: boolean = false;
+  gameInitialized: boolean = false;
   timer: any;
   public allCards: any[];
   players: any[];
@@ -105,6 +107,45 @@ export class ArenaComponent implements OnInit {
         }
      });
   }
+  drawCardByLibrary(libraryid: string) {
+    const libraryCards = this.allCards.filter(x => x.libraryid === libraryid && x.location == CardLocation.Library);
+    const cardsDrawn = libraryCards.slice(0, 1);
+    cardsDrawn.forEach(x => x.location = 4);
+    cardsDrawn.forEach(element => {
+      this.fireService.updateCard(element);
+    });
+  }
+  untapLands(libraryid: string) {
+    const landCards = this.allCards.filter(x => x.libraryid === libraryid && x.location == CardLocation.Land);
+    landCards.forEach(element => {
+      element.tapped = 0;
+      this.fireService.updateCard(element);
+    });
+  }
+  untapAndDrawCard(libraryid: string) {
+    this.drawCardByLibrary(libraryid);
+    this.untapLands(libraryid);
+    this.addEvent('Player has drawed card');
+  }
+  initializeGame() {
+    if (this.gameInitialized == false) {
+      const gameInstance = this.gameInstance;
+      gameInstance.turn_possession = this.players[Math.floor(Math.random()*this.players.length)].playerid; 
+      //if turn possession is an empty string assign a random player.
+      this.fireService.updateGameInstance(gameInstance);
+      const selectedPlayer = this.players.filter(x => x.playerid === gameInstance.turn_possession)[0];
+      this.untapAndDrawCard(selectedPlayer.libraryid);
+    }
+    this.gameInitialized = true;
+  }
+  endTurn() {
+    const currentTurnPlayerId = this.gameInstance.turn_possesion;
+    const currentPlayer = this.players.filter(x => x.playerid === currentTurnPlayerId)[0];
+    const newTurnPlayer = this.players.filter(x => x.playerid !== currentTurnPlayerId)[0];
+    this.gameInstance.turn_possesion = newTurnPlayer.playerid;
+    this.fireService.updateGameInstance(this.gameInstance);
+    this.untapAndDrawCard(newTurnPlayer.libraryid);
+  }
   firstInitSetup() {
     if (this.firstInitialize === true && this.initCount > 3) {
       this.currentPlayer = this.players[0];
@@ -145,6 +186,7 @@ export class ArenaComponent implements OnInit {
         this.fireService.updateCard(x);
       }
     });
+    this.gameInitialized = false;
   }
   shuffleGraveyardIntoLibrary(cardSet: number) {
     if (cardSet === 1) { // current player.
@@ -239,6 +281,13 @@ export class ArenaComponent implements OnInit {
     }
     this.fireService.updateCard(card);
     this.dialog.closeAll();
+    this.activateJustTappedTimer();
+  }
+  activateJustTappedTimer() {
+    this.justTappedTimer = true;
+    setTimeout(() => {
+      this.justTappedTimer = false; // Hey I can access 'this' in here!
+    }, 3000);
   }
   ngOnInit() {
   }
@@ -260,9 +309,6 @@ export class ArenaComponent implements OnInit {
     card.location = 1;
     this.fireService.updateCard(card);
   }
-  untapAndDrawCard() {
-    //
-  }
   drawHand() {
     const cardLibrary: any[] = this.libraryOneCards;
     const cardsDrawn = cardLibrary.slice(0, 7);
@@ -274,9 +320,11 @@ export class ArenaComponent implements OnInit {
   }
   hoveringOverCard(card: any) {
     const that = this;
-    this.timer = setTimeout(function() {
-      that.viewCard(card);
-    }, 2000);
+    if(!this.justTappedTimer) {
+      this.timer = setTimeout(function() {
+        that.viewCard(card);
+      }, 2500);
+    }
     this.addEvent('Viewed card:' + card.name);
   }
   hoverLeave() {

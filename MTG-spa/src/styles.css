@@ -1,6 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
+.handCursor {
+    cursor: pointer; 
+}
+.largeFontMTG {
+    font-size: 23px;
+}
+.mediumFontMTG {
+    font-size: 15px;
+}
+.sansserif {
+    font-family: Arial, Helvetica, sans-serif;
+}
 .rotateCard {
     -ms-transform: rotate(30deg); /* IE 9 */
     -webkit-transform: rotate(30deg); /* Safari */
