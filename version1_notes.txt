@@ -12,7 +12,7 @@ Frontend
 
 Midddleware
 1. add nodejs/express to handle request functionailty such as creating and choosing deck from webpage to mongodb then serve to firebase
-
+   - Do we need node/express? Can you make an api with python? Because I can make services with angular to send Get and Post requests.
 
 Backend
 1.image urls that don't work -DONE
