@@ -182,11 +182,17 @@
                 </mat-grid-tile> -->
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
                     <!-- Turn {{ gameInstance.turn_possesion }} -->
-                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion">Your Turn</span>
-                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!gameInstance?.turn_possesion">Player 2's Turn</span>
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == currentPlayer.playerid">Your Turn</span>
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == opponentPlayer.playerid">Player 2's Turn</span>
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!gameInitialized">Game Not Started</span>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2">
-                    <button [disabled]="!gameInstance?.turn_possesion" mat-stroked-button color="primary" (click)="endTurn()">End Turn</button>
+                    <span *ngIf="!gameInitialized">
+                        <button mat-stroked-button color="primary" (click)="initializeGame()">Start Game</button>
+                    </span>
+                    <span *ngIf="gameInitialized">
+                        <button [disabled]="!gameInstance?.turn_possesion == currentPlayer.playerid" mat-stroked-button color="primary" (click)="endTurn()">End Turn</button>
+                    </span>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2"></mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="7" matRipple>
