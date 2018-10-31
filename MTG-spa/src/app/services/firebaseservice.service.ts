@@ -6,11 +6,17 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class FirebaseserviceService {
   constructor(private database: AngularFireDatabase) { }
-  updateGameInstance(gameInstance: any): any {
+  // updateGameInstance(gameInstance: any): any {
+  //   // this.database.object('/Game/').remove();
+  //   // this.database.object('/Game/').set(gameInstance);
+  //   this.database.object('/Game/').update(gameInstance);
+  //   return gameInstance;
+  // }
+  updateGameInstanceTurnPossession(possession: string): any {
     // this.database.object('/Game/').remove();
     // this.database.object('/Game/').set(gameInstance);
-    this.database.object('/Game/').update(gameInstance);
-    return gameInstance;
+    this.database.object('/Game/turn_possession').update(possession);
+    return possession;
   }
   deleteCard(card: any): void {
     this.database.object('/Cards/' + card.uid).remove();
@@ -25,9 +31,9 @@ export class FirebaseserviceService {
     this.database.object('/Cards/' + card.uid).set(card);
   }
   updateCardCounter(card: any, add: boolean) {
-    if(add){
+    if (add) {
       card.counter += 1;
-    }else{
+    } else {
       card.counter -= 1;
     }
     this.updateCard(card);

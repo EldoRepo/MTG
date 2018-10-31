@@ -1,19 +1,22 @@
 things to fix:
 
 Frontend
-1.deck should reassign values when card is placed into library from other zone, card stays on top, also re orders after shuffel
-2.create pass turn button that untaps other players lands and draw card
-3.tutor by card name-DONE
-4.fix shuffel mechanism so it doesnt reset after you shuffel and then draw a card
-5.include loyalty property in card and display LOYALTY number as counTer value IF NOT NONE
-5.move cards to opponent battlefield
-7.create exile/command zone
-8.Tokens need more work-DONE
+1. deck should reassign values when card is placed into library from other zone, card stays on top, also re orders after shuffle
+2. create pass turn button that un-taps other players lands and draw card
+3. tutor by card name-DONE
+4. fix shuffle mechanism so it doesn't reset after you shuffle and then draw a card
+5. include loyalty property in card and display LOYALTY number as counter value IF NOT NONE
+5. move cards to opponent battlefield
+7. create exile/command zone
+8. Tokens need more work-DONE
+9. Fix annoying Tap/View Card - I think Fixed.
 
 Midddleware
-1. add nodejs/express to handle request functionailty such as creating and choosing deck from webpage to mongodb then serve to firebase
+1. add nodejs/express to handle request functionality such as creating and choosing deck from webpage to mongodb then serve to firebase
    - Do we need node/express? Can you make an api with python? Because I can make services with angular to send Get and Post requests.
 
 Backend
-1.image urls that don't work -DONE
-2.generate more decks
+1. image urls that don't work -DONE
+2. generate more decks
+3. Somehow introduce machine learning to create optimal decks - $$ potential haha.
+4. Somehow turn a deck from tappedout into a deck here. ( Just an Idea )

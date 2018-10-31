@@ -12,6 +12,14 @@
   height: 50px;
 }
 
+.libraryBtns {
+  display: none; /* Hide button */
+}
+
+/* .libraryBtns: hover button {
+   display: block; 
+} */
+
 .example-list {
     width: 100%;
     max-width: 100%;
