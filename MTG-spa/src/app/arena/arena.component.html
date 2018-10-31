@@ -11,7 +11,7 @@
                         <div class="flipDivOneEight">
                             <!-- <button mat-flat-button color="primary" (click)="viewCards(1, 2)">View Graveyard</button>
                             <br/> -->
-                            <i style="color: white;">count: {{ discardTwo?.length }}</i>
+                            <i class="sansserif largeFontMTG" style="color: white;">{{ discardTwo?.length }}</i>
                         </div>
                     </div>
                 </mat-grid-tile>
@@ -23,18 +23,12 @@
                                 <button mat-flat-button color="primary" (click)="viewCards(0, 2)">View Library</button>
                                 <button mat-flat-button color="primary" (click)="shuffleLibrary(2)">Shuffle Library</button>
                                 <br/>
-                                <i style="color: white;">count: {{ libraryTwoCards?.length }}</i>
+                                <i class="sansserif largeFontMTG" style="color: white;">{{ libraryTwoCards?.length }}</i>
                             </div>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="1">
-                        Opponents Life: <mat-icon (click)="increaseLife(2)">add</mat-icon> {{ opponentPlayer?.life }}  <mat-icon (click)="decreaseLife(2)">remove</mat-icon>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="1"> 
-                        Your Life: <mat-icon (click)="increaseLife(1)">add</mat-icon> {{ currentPlayer?.life }} <mat-icon (click)="decreaseLife(1)">remove</mat-icon>
-                </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    Game Menu
+                   
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
                     EXILE
@@ -47,47 +41,48 @@
                 </mat-grid-tile>
             </mat-grid-list>
         </div>
-       
     </div>
     <div fxFlex="80%">
-        <div cdkDropList #handTwoZone="cdkDropList" [cdkDropListData]="handTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, landsTwoZone]" 
-        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
-        style="overflow-x:auto;"> 
-            <div *ngFor="let card of handTwo" cdkDrag
-             [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                <img draggable="false" mat-card-image
-                 src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card" 
-                 alt="Photo of a Card" style="width:80px;">
-            </div>
-        </div>
-        <div cdkDropList #landsTwoZone="cdkDropList" [cdkDropListData]="landsTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, handTwoZone]" 
-        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
-        [style.background]="'lightgreen'" style="overflow-x:auto;">
-            <div *ngFor="let card of landsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
-             [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                <img draggable="false" mat-card-image [src]="card.image" 
-                onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                alt="Photo of a Card" style="width:80px;">
-            </div>
-        </div>
-        <div cdkDropList #enchantmentsTwoZone="cdkDropList" [cdkDropListData]="enchantmentsTwo" [cdkDropListConnectedTo]="[creaturesTwoZone, handTwoZone, landsTwoZone]"
-        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
-        [style.background]="'grey'" style="overflow-x:auto;">
-        <div *ngFor="let card of enchantmentsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
-        [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-            <img draggable="false" mat-card-image [src]="card.image"
-            onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-             alt="Photo of a Card" style="width:80px;">
-        </div>
-        </div>
-        <div cdkDropList #creaturesTwoZone="cdkDropList" [cdkDropListData]="creaturesTwo" [cdkDropListConnectedTo]="[enchantmentsTwoZone, handTwoZone, landsTwoZone]" 
-        cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'grey'" style="overflow-x:auto;">
-            <div *ngFor="let card of creaturesTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
-             [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
-                <img draggable="false" mat-card-image [src]="card.image" 
-                onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                alt="Photo of a Card" style="width:80px;">
-            </div>
+        <div>
+                <div cdkDropList #handTwoZone="cdkDropList" [cdkDropListData]="handTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, landsTwoZone]" 
+                cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" 
+                style="overflow-x:auto;"> 
+                    <div *ngFor="let card of handTwo" cdkDrag
+                     [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                        <img draggable="false" mat-card-image
+                         src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card" 
+                         alt="Photo of a Card" style="width:80px;">
+                    </div>
+                </div>
+                <div cdkDropList #landsTwoZone="cdkDropList" [cdkDropListData]="landsTwo"  [cdkDropListConnectedTo]="[enchantmentsTwoZone, creaturesTwoZone, handTwoZone]" 
+                cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
+                [style.background]="'lightgreen'" style="overflow-x:auto;">
+                    <div *ngFor="let card of landsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+                     [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                        <img draggable="false" mat-card-image [src]="card.image" 
+                        onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                        alt="Photo of a Card" style="width:80px;">
+                    </div>
+                </div>
+                <div cdkDropList #enchantmentsTwoZone="cdkDropList" [cdkDropListData]="enchantmentsTwo" [cdkDropListConnectedTo]="[creaturesTwoZone, handTwoZone, landsTwoZone]"
+                cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)"
+                [style.background]="'grey'" style="overflow-x:auto;">
+                <div *ngFor="let card of enchantmentsTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+                [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                    <img draggable="false" mat-card-image [src]="card.image"
+                    onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                     alt="Photo of a Card" style="width:80px;">
+                </div>
+                </div>
+                <div cdkDropList #creaturesTwoZone="cdkDropList" [cdkDropListData]="creaturesTwo" [cdkDropListConnectedTo]="[enchantmentsTwoZone, handTwoZone, landsTwoZone]" 
+                cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" [style.background]="'grey'" style="overflow-x:auto;">
+                    <div *ngFor="let card of creaturesTwo" cdkDrag (dblclick)="tapCard(card)" (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()"
+                     [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
+                        <img draggable="false" mat-card-image [src]="card.image" 
+                        onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
+                        alt="Photo of a Card" style="width:80px;">
+                    </div>
+                </div>
         </div>
     </div>
 </div>
@@ -140,23 +135,35 @@
         </div>
         <div fxFlex="20%">
             <mat-grid-list cols="4" rowHeight="40px">
-                <mat-grid-tile [colspan]="3" [rowspan]="1">
-                    <!-- <mat-select placeholder="Select Library" (selectionChange)="changePlayer($event.value)">
+                <!-- <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-select placeholder="Select Library" (selectionChange)="changePlayer($event.value)">
                         <mat-option *ngFor="let player of players" [value]="player.playerid"> 
                             {{player.playerid}}
                         </mat-option>
-                    </mat-select> -->
+                    </mat-select>
+                </mat-grid-tile> -->
+                <mat-grid-tile [colspan]="1" [rowspan]="2" matRipple>
+                    <div class="sansserif largeFontMTG" align="center">
+                        <span style="color: white;" class="mediumFontMTG">Health</span> <br/>
+                        <mat-icon class="handCursor" color="primary" (click)="increaseLife(1)">add</mat-icon> <span style="color: white;">{{ currentPlayer?.life }}</span><mat-icon class="handCursor" color="warn" (click)="decreaseLife(1)">remove</mat-icon>
+                    </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                        <button mat-stroked-button [matMenuTriggerFor]="menu">Game Menu</button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="createToken()">Create Token</button>
-                            <button mat-menu-item [matMenuTriggerFor]="librarySwitchMenu">Switch Library</button>
-                            <button mat-menu-item (click)="resetGame()">Reset Game</button>
-                        </mat-menu>
-                        <mat-menu #librarySwitchMenu="matMenu">
-                            <button mat-menu-item *ngFor="let player of players" (click)="changePlayer(player.playerid)">{{ player.playerid }}</button>
-                        </mat-menu>
+                <mat-grid-tile [colspan]="2" [rowspan]="2" matRipple>
+                    <div class="sansserif largeFontMTG" align="center">
+                        <span style="color: white;" class="mediumFontMTG">Player 2</span><br/>
+                        <mat-icon class="handCursor" color="primary" (click)="increaseLife(2)">add</mat-icon> <span style="color: white;">{{ opponentPlayer?.life }}</span><mat-icon class="handCursor" color="warn" (click)="decreaseLife(2)">remove</mat-icon>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="2" >
+                    <button mat-raised-button [matMenuTriggerFor]="menu">Menu</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="createToken()">Create Token</button>
+                        <button mat-menu-item [matMenuTriggerFor]="librarySwitchMenu">Switch Library</button>
+                        <button mat-menu-item (click)="resetGame()">Reset Game</button>
+                    </mat-menu>
+                    <mat-menu #librarySwitchMenu="matMenu">
+                        <button mat-menu-item *ngFor="let player of players" (click)="changePlayer(player.playerid)">{{ player.playerid }}</button>
+                    </mat-menu>
                 </mat-grid-tile>
                 <!-- <mat-grid-tile [colspan]="4" [rowspan]="2">
                     <div style="overflow-y: auto;">
@@ -165,22 +172,31 @@
                         </div>
                     </div>
                 </mat-grid-tile> -->
-                <mat-grid-tile [colspan]="3" [rowspan]="2">
+                <!-- <mat-grid-tile [colspan]="3" [rowspan]="2">
                     <mat-form-field class="example-full-width">
                         <textarea #cb1 matInput placeholder="Leave a comment"></textarea>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2">
                     <button mat-stroked-button color="primary" (click)="addEvent(cb1.value)">Submit</button>
+                </mat-grid-tile> -->
+                <mat-grid-tile [colspan]="2" [rowspan]="2">
+                    <!-- Turn {{ gameInstance.turn_possesion }} -->
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion">Your Turn</span>
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!gameInstance?.turn_possesion">Player 2's Turn</span>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="7">
+                <mat-grid-tile [colspan]="1" [rowspan]="2">
+                    <button [disabled]="!gameInstance?.turn_possesion" mat-stroked-button color="primary" (click)="endTurn()">End Turn</button>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="2"></mat-grid-tile>
+                <mat-grid-tile [colspan]="2" [rowspan]="7" matRipple>
                     <div style="height:100%;width: 100%;" cdkDropList #libraryOneZone="cdkDropList" [cdkDropListData]="libraryOneCards" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, discardOneZone, handOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)">
                         <div [matMenuTriggerFor]="libraryOneMenu" style="height: 100%;
                         background-size:cover;
                         background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
-                            <i style="color: white;">count: {{ libraryOneCards?.length }}</i>
+                            <i style="color: white;" class="sansserif largeFontMTG">{{ libraryOneCards?.length }}</i>
                             <mat-menu #libraryOneMenu="matMenu">
                                 <button mat-menu-item (click)="drawCard()">Draw Card</button>
                                 <button mat-menu-item (click)="shuffleLibrary(1)">Shuffle Library</button>
@@ -189,7 +205,7 @@
                         </div>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="7">
+                <mat-grid-tile [colspan]="2" [rowspan]="7" matRipple>
                     <div style="height:100%;width: 100%;" cdkDropList #discardOneZone="cdkDropList" [cdkDropListData]="discardOne" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, libraryOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)" >
@@ -201,7 +217,7 @@
                                 <button mat-menu-item (click)="viewCards(1, 1)">View Graveyard</button>
                                 <button mat-menu-item (click)="viewCards(1, 1)">Shuffle Graveyard Into Library</button>
                             </mat-menu>
-                            <i style="color: white;">count: {{ discardOne?.length }}</i>
+                            <i class="sansserif largeFontMTG" style="color: white;">{{ discardOne?.length }}</i>
                         </div>
                     </div>
                 </mat-grid-tile>

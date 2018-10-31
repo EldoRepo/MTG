@@ -28,6 +28,7 @@ enum CardLocation {
 })
 export class ArenaComponent implements OnInit {
   // public cards: any[];
+  justTappedTimer: boolean = false;
   timer: any;
   public allCards: any[];
   players: any[];
@@ -104,6 +105,19 @@ export class ArenaComponent implements OnInit {
           this.firstInitSetup();
         }
      });
+  }
+  untapAndDrawCard(player: number) {
+    //
+  }
+  initializeGame() {
+    //if turn possession is an empty string assign a random player.
+  }
+  endTurn() {
+    const currentTurn = this.gameInstance.turn_possesion;
+    let newTurn;
+    currentTurn == 1 ? newTurn = 0 : newTurn = 1;
+    this.fireService.updateGameInstance(this.gameInstance);
+    this.untapAndDrawCard(newTurn);
   }
   firstInitSetup() {
     if (this.firstInitialize === true && this.initCount > 3) {
@@ -239,6 +253,13 @@ export class ArenaComponent implements OnInit {
     }
     this.fireService.updateCard(card);
     this.dialog.closeAll();
+    this.activateJustTappedTimer();
+  }
+  activateJustTappedTimer() {
+    this.justTappedTimer = true;
+    setTimeout(() => {
+      this.justTappedTimer = false; // Hey I can access 'this' in here!
+    }, 3000);
   }
   ngOnInit() {
   }
@@ -260,9 +281,6 @@ export class ArenaComponent implements OnInit {
     card.location = 1;
     this.fireService.updateCard(card);
   }
-  untapAndDrawCard() {
-    //
-  }
   drawHand() {
     const cardLibrary: any[] = this.libraryOneCards;
     const cardsDrawn = cardLibrary.slice(0, 7);
@@ -274,9 +292,11 @@ export class ArenaComponent implements OnInit {
   }
   hoveringOverCard(card: any) {
     const that = this;
-    this.timer = setTimeout(function() {
-      that.viewCard(card);
-    }, 2000);
+    if(!this.justTappedTimer) {
+      this.timer = setTimeout(function() {
+        that.viewCard(card);
+      }, 2500);
+    }
     this.addEvent('Viewed card:' + card.name);
   }
   hoverLeave() {

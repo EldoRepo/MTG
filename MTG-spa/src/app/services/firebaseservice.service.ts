@@ -6,7 +6,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class FirebaseserviceService {
   constructor(private database: AngularFireDatabase) { }
-
+  updateGameInstance(gameInstance: any): any {
+    this.database.object('/Game/')
+    .update(gameInstance);
+    return gameInstance;
+  }
   deleteCard(card: any): void {
     this.database.object('/Cards/' + card.uid).remove();
   }
