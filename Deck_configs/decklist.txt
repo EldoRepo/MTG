@@ -67,7 +67,7 @@ leovold={
                 'Windfall':1,
                 'Worm Harvest':1,
             }
-krenko={
+Grenzo={
                 'Battle Squadron':1,
                 'Beetleback Chief':1,
                 'Boggart Birth Rite':1,

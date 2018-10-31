@@ -1,13 +1,19 @@
 things to fix:
 
+Frontend
 1.deck should reassign values when card is placed into library from other zone, card stays on top, also re orders after shuffel
 2.create pass turn button that untaps other players lands and draw card
-3.tutor by card name
-4.include loyalty property in card and display coutner #
+3.tutor by card name-DONE
+4.fix shuffel mechanism so it doesnt reset after you shuffel and then draw a card
+5.include loyalty property in card and display LOYALTY number as counTer value IF NOT NONE
 5.move cards to opponent battlefield
-7.create exile zone
-8.create command zone
-9.Tokens need more work, possibly id or unique identifyer(bsonid)
+7.create exile/command zone
+8.Tokens need more work-DONE
+
+Midddleware
+1. add nodejs/express to handle request functionailty such as creating and choosing deck from webpage to mongodb then serve to firebase
+
 
 Backend
-6.image urls that don't work
+1.image urls that don't work -DONE
+2.generate more decks
