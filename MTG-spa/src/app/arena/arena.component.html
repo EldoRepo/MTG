@@ -27,7 +27,7 @@
                             </div>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <mat-grid-tile [colspan]="1" [rowspan]="3">
                    
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
@@ -182,8 +182,8 @@
                 </mat-grid-tile> -->
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
                     <!-- Turn {{ gameInstance.turn_possesion }} -->
-                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == currentPlayer.playerid">Your Turn</span>
-                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == opponentPlayer.playerid">Player 2's Turn</span>
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == currentPlayer?.playerid">Your Turn</span>
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == opponentPlayer?.playerid">Player 2's Turn</span>
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!gameInitialized">Game Not Started</span>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2">
@@ -199,12 +199,24 @@
                     <div style="height:100%;width: 100%;" cdkDropList #libraryOneZone="cdkDropList" [cdkDropListData]="libraryOneCards" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, discardOneZone, handOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)">
-                        <div [matMenuTriggerFor]="libraryOneMenu" style="height: 100%;
+                        <div class="libraryOneDiv" style="height: 100%;
                         background-size:cover;
                         background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
                             <i style="color: white;" class="sansserif largeFontMTG">{{ libraryOneCards?.length }}</i>
+                            <div class="libraryOneBtns" style="padding-top: 60px;" align="center">   
+                                <div style="padding: 20px;">
+                                    <button mat-raised-button (click)="drawCard()"><i class="material-icons">
+                                        flip_to_front
+                                        </i>
+                                    </button>
+                                </div>
+                                <button mat-raised-button color="primary" [matMenuTriggerFor]="libraryOneMenu">
+                                    <i class="material-icons">
+                                        settings
+                                        </i>
+                                </button>
+                            </div>
                             <mat-menu #libraryOneMenu="matMenu">
-                                <button mat-menu-item (click)="drawCard()">Draw Card</button>
                                 <button mat-menu-item (click)="shuffleLibrary(1)">Shuffle Library</button>
                                 <button mat-menu-item (click)="viewCards(0, 1)">View Library</button>
                             </mat-menu>
