@@ -73,9 +73,8 @@ def create_game(decks):
 
     gameid=str(bson.objectid.ObjectId())
     gameproperties={'gameid':gameid,
-                    'turn_possesion':0,
+                    'turn_possession':'',
                     'turn_count':0,
-                    
                     }
     eventlog={'eventlogs':['game_start'],
                 }
