@@ -101,10 +101,10 @@ def create_game(decks):
 #######functions for creating decks, adding and removing cards
 
 def create_collection(collection_config,masterdb,targetdb):
-    
+    count=0
     for card_name in collection_config:
             card=get_card_by_field(masterdb,'name',card_name)
-            print(card_name)
+            print(card_name+ " added")
             for n in range(collection_config[card_name]):
                 card["_id"]=bson.objectid.ObjectId()
                 add_card_to_collection(targetdb,card)
@@ -113,6 +113,7 @@ def create_collection(collection_config,masterdb,targetdb):
 
 def remove_card():
     return()
+
 def add_card_to_collection(db,card):
     db.insert_one(card)
     return()
@@ -129,7 +130,7 @@ def ck_return_price(mtgcard):
     ##need to figure out how not be a bot
     cardkingdom1=urllib.request.urlretrieve("https://www.cardkingdom.com/catalog/search?search=header&filter%5Bname%5D=Teferi%27s+Care&ac=1")
 
-###functions for pasing raw data from mtgsdk
+###functions for passing raw data from mtgsdk
 
 def parse_set(mtgset):
     set_properties= ['code','name','gatherer_code','old_code','magic_cards_info_code','release_date',
@@ -152,7 +153,7 @@ def parse_set(mtgset):
     return(post)
 
 def parse_card(mtgcard):
-####best effort, itterate through cards to try to find an image
+  ###best effort, itterate through cards to try to find an image
     if mtgcard.image_url == None:
         cards=Card.where(name=mtgcard.name).all()
         for i in range(len(cards)):
@@ -219,16 +220,3 @@ def insert_sets(db,sets):
     except:
         raise
     return()
-
-
-###### passing collections from mongodb to firebase
-
-
-if __name__ == "__main__":
-
-    ####GET ALL CARDS FROM MTGDSK API
-    cards=Card.all()
-    client = MongoClient('localhost', 27017)
-    masterdb = client['MTG_CARDS'].cards
-    insert_to_mongo_collection(masterdb,cards)
-  

@@ -4,17 +4,23 @@ from pymongo import MongoClient
 import requests
 import json
 import bson
-import urllib3 as urllib
+import argparse
 
 
 if __name__ == "__main__":
 
     ##connect to local db
-    client = MongoClient('localhost', 27017)
-    targetdb=client['MTG_CARDS'].Sig
-    target2db=client['MTG_CARDS'].Grenzo
+    parser = argparse.ArgumentParser(description='Create a new MTG deck')
+    parser.add_argument('--D1', metavar='--Deck1', required=True,
+                        help='the decklist name')
+    parser.add_argument('--D2', metavar='--Deck2', required=True,
+                        help='the decklist name')
+    args = parser.parse_args()
 
-    #create_collection(collection_config,masterdb,targetdb)
+
+    client = MongoClient('localhost', 27017)
+    targetdb=client['MTG_CARDS'][args.D1]
+    target2db=client['MTG_CARDS'][args.D2]
     decklist=[]
     decklist1=[]
     for i in targetdb.find():
@@ -22,10 +28,7 @@ if __name__ == "__main__":
     for i in target2db.find():
             decklist1.append(i)
 
-    deck1=MTG.clean_collection(decklist)
-    deck1=MTG.add_gameplay_properties(decklist)
-
-    deck2=MTG.clean_collection(decklist1)
-    deck2=MTG.add_gameplay_properties(decklist1)
+    deck1=MTG.add_gameplay_properties(MTG.clean_collection(decklist))
+    deck2=MTG.add_gameplay_properties(MTG.clean_collection(decklist1))
     MTG.create_game([deck1,deck2])
 
