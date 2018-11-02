@@ -28,6 +28,7 @@ enum CardLocation {
 })
 export class ArenaComponent implements OnInit {
   // public cards: any[];
+  dynamicCardWidth: string = '80px';
   justTappedTimer = false;
   gameInitialized = false;
   timer: any;

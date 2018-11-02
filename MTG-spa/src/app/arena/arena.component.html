@@ -146,7 +146,9 @@
                 <div *ngFor="let card of handOne" cdkDrag  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image"
                     onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                     alt="Photo of a Card" style="width:80px;">
+                     alt="Photo of a Card"
+                     [ngStyle]="{'width': dynamicCardWidth }">
+                     <!-- style="width:80px;" -->
                 </div>
             </div>
         </div>
