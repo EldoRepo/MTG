@@ -6,7 +6,7 @@
             <mat-grid-list cols="4" rowHeight="40px">
                 <mat-grid-tile [colspan]="2" [rowspan]="6">
                     <div (click)="viewCards(1, 2)" class="flipDivOneEight" style="height:100%; width: 100%;
-                    background-size:cover;
+                    background-size: 100% 100%;
                     background-image:url('https://vignette.wikia.nocookie.net/nazizombiesplus/images/d/d5/Graveyard.png/revision/latest?cb=20110810192731');">
                         <div class="flipDivOneEight">
                             <!-- <button mat-flat-button color="primary" (click)="viewCards(1, 2)">View Graveyard</button>
@@ -16,28 +16,45 @@
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="6">
-                    <div class="flipDivOneEight" style="height: 100%; width:auto;
-                    background-size:cover;
+                    <div class="flipDivOneEight" [matMenuTriggerFor]="libraryTwoMenu" style="height: 100%; width: 100%;
+                    background-size: 100% 100%;
                     background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
                             <div class="flipDivOneEight">
-                                <button mat-flat-button color="primary" (click)="viewCards(0, 2)">View Library</button>
-                                <button mat-flat-button color="primary" (click)="shuffleLibrary(2)">Shuffle Library</button>
-                                <br/>
                                 <i class="sansserif largeFontMTG" style="color: white;">{{ libraryTwoCards?.length }}</i>
                             </div>
+                            <mat-menu #libraryTwoMenu="matMenu">
+                                <button mat-menu-item (click)="shuffleLibrary(2)">Shuffle Library</button>
+                                <button mat-menu-item (click)="viewCards(0, 2)">View Library</button>
+                            </mat-menu>
                     </div>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="4" [rowspan]="2">
+                   
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
                    
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
-                    EXILE
+                    <div style="height: 100%; width: 100%;
+                     background-size: 100% 100%;
+                    background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
+                        EXILE
+                    </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
-                    Command
+                    <div style="height: 100%; width: 100%;
+                     background-size: 100% 100%;
+                    background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
+                        Command 1
+                    </div>
                 </mat-grid-tile>    
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
-                    Command
+                    <div style="height: 100%; width: 100%;
+                    background-size:contain;
+                    background-size: 100% 100%;
+                    background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
+                        Command 2
+                    </div>
                 </mat-grid-tile>
             </mat-grid-list>
         </div>
@@ -200,7 +217,7 @@
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, discardOneZone, handOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)">
                         <div class="libraryOneDiv" style="height: 100%;
-                        background-size:cover;
+                        background-size: 100% 100%;
                         background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
                             <i style="color: white;" class="sansserif largeFontMTG">{{ libraryOneCards?.length }}</i>
                             <div class="libraryOneBtns" style="padding-top: 60px;" align="center">   
@@ -229,7 +246,7 @@
                     (cdkDropListDropped)="drop($event)" >
                         <!-- <h2>Graveyard</h2> -->
                         <div [matMenuTriggerFor]="discardOneMenu" style="height:100%;
-                            background-size:cover;
+                            background-size: 100% 100%;
                             background-image:url('https://vignette.wikia.nocookie.net/nazizombiesplus/images/d/d5/Graveyard.png/revision/latest?cb=20110810192731');">
                             <mat-menu #discardOneMenu="matMenu">
                                 <button mat-menu-item (click)="viewCards(1, 1)">View Graveyard</button>
