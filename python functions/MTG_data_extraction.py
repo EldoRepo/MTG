@@ -80,8 +80,9 @@ def create_game(decks):
                 }
     r=requests.put('https://mtggame-b3e32.firebaseio.com/Eventlogs/.json',json.dumps(eventlog))
     ### add library ids to game
-    for i in range(len(decks)):
-        gameproperties['libraryid_'+str(i+1)]=decks[i][1]['libraryid']
+    for i in decks:
+        count=1
+        gameproperties['libraryid_'+str(count)]=decks[count-1][1]['libraryid']
     ###create players 
     count=1
     for k in decks:

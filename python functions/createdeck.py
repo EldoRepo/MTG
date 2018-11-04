@@ -3,7 +3,7 @@ import MTG_data_extraction as MTG
 import pymongo
 from pymongo import MongoClient
 import argparse
-
+import pickle
 
 ######## need to be able to passs a list of the deck as well as the name for the deck
 
@@ -15,9 +15,8 @@ if __name__ == "__main__":
                         help='The new deck name')
     args = parser.parse_args()
 
-    with open(ard.D, 'rb') as input:
-        data = pickle.load(input)
-
+    f=open(args.D,'r')
+    data=eval(f.read())
 
     client = MongoClient('localhost', 27017)
     masterdb = client['MTG_CARDS']['cards']
