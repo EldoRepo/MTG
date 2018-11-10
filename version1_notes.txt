@@ -10,6 +10,9 @@ Frontend
 7. create exile/command zone
 8. Tokens need more work-DONE
 9. Fix annoying Tap/View Card - I think Fixed.
+10. Make easier to view card.
+11. option to execute action or tap on hover.
+12. Make cards bigger if less on board.
 
 Midddleware
 1. add nodejs/express to handle request functionality such as creating and choosing deck from webpage to mongodb then serve to firebase
