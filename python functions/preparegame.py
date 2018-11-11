@@ -30,5 +30,6 @@ if __name__ == "__main__":
 
     deck1=MTG.add_gameplay_properties(MTG.clean_collection(decklist))
     deck2=MTG.add_gameplay_properties(MTG.clean_collection(decklist1))
-    MTG.create_game([deck1,deck2])
+    decks=[deck1,deck2]
+    MTG.create_game(decks)
 
