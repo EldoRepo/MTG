@@ -181,6 +181,7 @@ export class ArenaComponent implements OnInit {
       x.tapped = 0;
       x.location = 0;
       x.counter = 0;
+      // set players life to zero.
       if (x.type === 'token') {
         this.fireService.deleteCard(x);
       } else {
