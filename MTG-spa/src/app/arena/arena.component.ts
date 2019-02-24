@@ -298,6 +298,7 @@ export class ArenaComponent implements OnInit {
   startGame() {
   }
   drawCard() {
+    this.shuffleLibrary(1);
     const cardLibrary: any[] = this.libraryOneCards;
     const cardsDrawn = cardLibrary.slice(0, 1);
     cardsDrawn.forEach(x => x.location = 4);
