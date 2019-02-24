@@ -196,7 +196,7 @@
                 </mat-grid-tile> -->
             
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
-                    Turn {{ gameInstance.turn_possesion }}
+                    Turn {{ gameInstance?.turn_possesion }}
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == currentPlayer?.playerid">Your Turn</span>
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == opponentPlayer?.playerid">Player 2's Turn</span>
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!gameInitialized">Game Not Started</span>

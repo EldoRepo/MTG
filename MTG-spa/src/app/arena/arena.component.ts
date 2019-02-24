@@ -176,6 +176,10 @@ export class ArenaComponent implements OnInit {
     this.addEvent('Player has changed players');
   }
   resetGame() {
+    this.players.forEach(x=> {
+      x.life = 40;
+      this.fireService.updatePlayer(x);
+    });
     const allCards = this.allCards;
     allCards.forEach(x => {
       x.tapped = 0;
