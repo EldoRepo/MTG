@@ -28,11 +28,11 @@
                             </mat-menu>
                     </div>
                 </mat-grid-tile>
+
+                <!-- EXILE ZONE
                 <mat-grid-tile [colspan]="4" [rowspan]="2">
-                   
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
-                   
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="3">
                     <div style="height: 100%; width: 100%;
@@ -55,7 +55,8 @@
                     background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
                         Command 2
                     </div>
-                </mat-grid-tile>
+                </mat-grid-tile> -->
+
             </mat-grid-list>
         </div>
     </div>
@@ -154,13 +155,6 @@
         </div>
         <div fxFlex="20%">
             <mat-grid-list cols="4" rowHeight="40px">
-                <!-- <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <mat-select placeholder="Select Library" (selectionChange)="changePlayer($event.value)">
-                        <mat-option *ngFor="let player of players" [value]="player.playerid"> 
-                            {{player.playerid}}
-                        </mat-option>
-                    </mat-select>
-                </mat-grid-tile> -->
                 <mat-grid-tile [colspan]="1" [rowspan]="2" matRipple>
                     <div class="sansserif largeFontMTG" align="center">
                         <span style="color: white;" class="mediumFontMTG">Health</span> <br/>
@@ -184,6 +178,7 @@
                         <button mat-menu-item *ngFor="let player of players" (click)="changePlayer(player.playerid)">{{ player.playerid }}</button>
                     </mat-menu>
                 </mat-grid-tile>
+
                 <!-- <mat-grid-tile [colspan]="4" [rowspan]="2">
                     <div style="overflow-y: auto;">
                         <div *ngFor="let event of eventLogs" >
@@ -199,8 +194,9 @@
                 <mat-grid-tile [colspan]="1" [rowspan]="2">
                     <button mat-stroked-button color="primary" (click)="addEvent(cb1.value)">Submit</button>
                 </mat-grid-tile> -->
+            
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
-                    <!-- Turn {{ gameInstance.turn_possesion }} -->
+                    Turn {{ gameInstance.turn_possesion }}
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == currentPlayer?.playerid">Your Turn</span>
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == opponentPlayer?.playerid">Player 2's Turn</span>
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!gameInitialized">Game Not Started</span>
@@ -214,7 +210,8 @@
                     </span>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2"></mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="7" matRipple>
+
+                <mat-grid-tile [colspan]="2" [rowspan]="4" matRipple>
                     <div style="height:100%;width: 100%;" cdkDropList #libraryOneZone="cdkDropList" [cdkDropListData]="libraryOneCards" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, discardOneZone, handOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)">
@@ -242,7 +239,7 @@
                         </div>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="7" matRipple>
+                <mat-grid-tile [colspan]="2" [rowspan]="4" matRipple>
                     <div style="height:100%;width: 100%;" cdkDropList #discardOneZone="cdkDropList" [cdkDropListData]="discardOne" 
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, libraryOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)" >
@@ -258,20 +255,6 @@
                         </div>
                     </div>
                 </mat-grid-tile>
-                <!-- <mat-grid-tile [colspan]="4" [rowspan]="2">
-                    <mat-grid-tile [colspan]="1" [rowspan]="1">
-                        
-                    </mat-grid-tile> 
-                    <mat-grid-tile [colspan]="1" [rowspan]="1">
-
-                    </mat-grid-tile> 
-                    <mat-grid-tile [colspan]="1" [rowspan]="1">
-
-                    </mat-grid-tile> 
-                    <mat-grid-tile [colspan]="1" [rowspan]="1">
-
-                    </mat-grid-tile> 
-                </mat-grid-tile>  -->
             </mat-grid-list>
         </div>
     </div>
