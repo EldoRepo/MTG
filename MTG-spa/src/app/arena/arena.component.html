@@ -221,16 +221,13 @@
                             <i style="color: white;" class="sansserif largeFontMTG">{{ libraryOneCards?.length }}</i>
                             <div class="libraryOneBtns" style="padding-top: 60px;" align="center">   
                                 <div style="padding: 20px;">
-                                    <button mat-raised-button (click)="drawCard()"><i class="material-icons">
-                                        flip_to_front
-                                        </i>
+                                    <button mat-raised-button (click)="drawCard()">
+                                        <i class="material-icons"> flip_to_front</i>
                                     </button>
-                                </div>
-                                <button mat-raised-button color="primary" [matMenuTriggerFor]="libraryOneMenu">
-                                    <i class="material-icons">
-                                        settings
-                                        </i>
-                                </button>
+                                    <button mat-raised-button color="primary" [matMenuTriggerFor]="libraryOneMenu">
+                                            <i class="material-icons"> settings</i>
+                                    </button>
+                                </div>  
                             </div>
                             <mat-menu #libraryOneMenu="matMenu">
                                 <button mat-menu-item (click)="shuffleLibrary(1)">Shuffle Library</button>
@@ -249,7 +246,7 @@
                             background-image:url('https://vignette.wikia.nocookie.net/nazizombiesplus/images/d/d5/Graveyard.png/revision/latest?cb=20110810192731');">
                             <mat-menu #discardOneMenu="matMenu">
                                 <button mat-menu-item (click)="viewCards(1, 1)">View Graveyard</button>
-                                <button mat-menu-item (click)="viewCards(1, 1)">Shuffle Graveyard Into Library</button>
+                                <button mat-menu-item (click)="shuffleGraveyardIntoLibrary(1)">Shuffle Graveyard Into Library</button>
                             </mat-menu>
                             <i class="sansserif largeFontMTG" style="color: white;">{{ discardOne?.length }}</i>
                         </div>
