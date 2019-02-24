@@ -330,7 +330,7 @@ export class ArenaComponent implements OnInit {
     if (!this.justTappedTimer) {
       this.timer = setTimeout(function() {
         that.viewCard(card);
-      }, 2500);
+      }, 2000);
     }
     this.addEvent('Viewed card:' + card.name);
   }
