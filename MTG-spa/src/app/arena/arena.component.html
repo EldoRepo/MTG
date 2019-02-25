@@ -115,7 +115,7 @@
                  <span [matBadge]="card.counter" matBadgePosition="above after" matBadgeOverlap="true" MatBadgeSize="small">
                         <img draggable="false" mat-card-image [src]="card.image" 
                         onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                        alt="Photo of a Card" style="width:80px;">
+                        alt="Photo of a Card" [ngStyle]="{'width': dynamicCardWidth }">
                  </span>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                 <span [matBadge]="card.counter" matBadgePosition="above after" matBadgeOverlap="true" MatBadgeSize="small">
                     <img draggable="false" mat-card-image [src]="card.image" 
                     onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                    alt="Photo of a Card" style="width:80px;">
+                    alt="Photo of a Card" [ngStyle]="{'width': dynamicCardWidth }">
                 </span>
             </div>
             </div>
@@ -138,7 +138,7 @@
                 [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image" 
                     onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                    alt="Photo of a Card" style="width:80px;">
+                    alt="Photo of a Card" [ngStyle]="{'width': dynamicCardWidth }">
                 </div>
             </div>
             <!-- <h2>Hand</h2> -->
@@ -148,8 +148,7 @@
                 <div *ngFor="let card of handOne" cdkDrag  (mouseenter)="hoveringOverCard(card)" (mouseleave)="hoverLeave()" [ngClass]="card.tapped == 1 ? 'rotateCard': ''">
                     <img draggable="false" mat-card-image [src]="card.image"
                     onError="this.src='http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card';"
-                     alt="Photo of a Card"
-                     [ngStyle]="{'width': dynamicCardWidth }">
+                     alt="Photo of a Card" [ngStyle]="{'width': dynamicCardWidth }">
                      <!-- style="width:80px;" -->
                 </div>
             </div>
