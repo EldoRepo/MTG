@@ -40,7 +40,6 @@ export class ArenaComponent implements OnInit {
   eventLogs: any[];
   firstInitialize = true;
   initCount = 0;
-  rollValue = 0;
   //
   exiledCards: any;
   //
@@ -201,7 +200,7 @@ export class ArenaComponent implements OnInit {
     this.gameInitialized = false;
   }
   rollDice() {
-    this.rollValue = this.fireService.rollDice();
+    this.fireService.rollDice();
   }
   shuffleGraveyardIntoLibrary(cardSet: number) {
     if (cardSet === 1) { // current player.
