@@ -4,7 +4,7 @@
     <div fxFlex="20%">
         <div>
             <mat-grid-list cols="4" rowHeight="40px">
-                <mat-grid-tile [colspan]="2" [rowspan]="6">
+                <mat-grid-tile [colspan]="2" [rowspan]="5">
                     <div (click)="viewCards(1, 2)" class="flipDivOneEight" style="height:100%; width: 100%;
                     background-size: 100% 100%;
                     background-image:url('https://vignette.wikia.nocookie.net/nazizombiesplus/images/d/d5/Graveyard.png/revision/latest?cb=20110810192731');">
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="2" [rowspan]="6">
+                <mat-grid-tile [colspan]="2" [rowspan]="5">
                     <div class="flipDivOneEight" [matMenuTriggerFor]="libraryTwoMenu" style="height: 100%; width: 100%;
                     background-size: 100% 100%;
                     background-image:url('http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=500532&type=card');">
@@ -23,12 +23,15 @@
                                 <i class="sansserif largeFontMTG" style="color: white;">{{ libraryTwoCards?.length }}</i>
                             </div>
                             <mat-menu #libraryTwoMenu="matMenu">
-                                <button mat-menu-item (click)="shuffleLibrary(2)">Shuffle Library</button>
+                                <button mat-menu-item (click)="shuffleSelectedLibrary(2)">Shuffle Library</button>
                                 <button mat-menu-item (click)="viewCards(0, 2)">View Library</button>
                             </mat-menu>
                     </div>
                 </mat-grid-tile>
-
+                <mat-grid-tile [colspan]="2" [rowspan]="1">
+                    <div class="sansserif largeFontMTG" style="color: blueviolet;">{{rollValue}}</div>
+                    <button (click)="rollDice()">Roll</button>
+                </mat-grid-tile>
                 <!-- EXILE ZONE -->
                 <!-- <mat-grid-tile [colspan]="4" [rowspan]="2">
                 </mat-grid-tile>
@@ -230,7 +233,7 @@
                                 </div>  
                             </div>
                             <mat-menu #libraryOneMenu="matMenu">
-                                <button mat-menu-item (click)="shuffleLibrary(1)">Shuffle Library</button>
+                                <button mat-menu-item (click)="shuffleSelectedLibrary(1)">Shuffle Library</button>
                                 <button mat-menu-item (click)="viewCards(0, 1)">View Library</button>
                             </mat-menu>
                         </div>

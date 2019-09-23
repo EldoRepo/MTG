@@ -15,8 +15,13 @@ export class FirebaseserviceService {
   updateGameInstanceTurnPossession(possession: string): any {
     // this.database.object('/Game/').remove();
     // this.database.object('/Game/').set(gameInstance);
-    this.database.object('/Game/turn_possession').update(possession);
+    this.database.object('/Game/turn_possession').set(possession);
     return possession;
+  }
+  rollDice(): any {
+    const value = Math.floor(Math.random() * (20 - 1 + 1) + 1);
+    this.database.object('/Game/dice_value').set(value);
+    return value;
   }
   deleteCard(card: any): void {
     this.database.object('/Cards/' + card.uid).remove();

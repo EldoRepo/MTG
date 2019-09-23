@@ -40,6 +40,7 @@ export class ArenaComponent implements OnInit {
   eventLogs: any[];
   firstInitialize = true;
   initCount = 0;
+  rollValue = 0;
   //
   exiledCards: any;
   //
@@ -108,6 +109,7 @@ export class ArenaComponent implements OnInit {
         }
      });
   }
+  
   drawCardByLibrary(libraryid: string) {
     const libraryCards = this.allCards.filter(x => x.libraryid === libraryid && x.location === CardLocation.Library);
     const cardsDrawn = libraryCards.slice(0, 1);
@@ -194,6 +196,9 @@ export class ArenaComponent implements OnInit {
     });
     this.gameInitialized = false;
   }
+  rollDice() {
+    this.rollValue = this.fireService.rollDice();
+  }
   shuffleGraveyardIntoLibrary(cardSet: number) {
     if (cardSet === 1) { // current player.
       const discarded = this.discardOne; // set discarded cards location
@@ -201,7 +206,7 @@ export class ArenaComponent implements OnInit {
         x.location = CardLocation.Library;
         this.fireService.updateCard(x);
       });
-      this.shuffleLibrary(1);
+      this.shuffleSelectedLibrary(1);
     }
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -302,7 +307,6 @@ export class ArenaComponent implements OnInit {
   startGame() {
   }
   drawCard() {
-    this.shuffleLibrary(1);
     const cardLibrary: any[] = this.libraryOneCards;
     const cardsDrawn = cardLibrary.slice(0, 1);
     cardsDrawn.forEach(x => x.location = 4);
@@ -417,31 +421,54 @@ export class ArenaComponent implements OnInit {
     this.fireService.updatePlayer(selectedPlayer);
     this.addEvent('Player has decreased life');
   }
-  getShuffleLibrary(library: any) {
-    const libraryCount = library.length;
-    let counter = library.length;
-    // While there are elements in the array
-    while (counter > 0) {
-        // Pick a random index
-        const index = Math.floor(Math.random() * counter);
-        // Decrease counter by 1
-        counter--;
-        // And swap the last element with it
-        const temp = library[counter];
-        library[counter] = library[index];
-        library[index] = temp;
-    }
-    return library;
+  getRandomNumber(max:number, min: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
-  shuffleLibrary(libraryNumber: number) {
+  shuffleGivenLibrary(library: any) {
+    const libraryCount = library.length;
+    // let shuffleCount = 0;
+    library.forEach(card => {
+      const currentIndex = card.libraryindex;
+      const newIndex = this.getRandomNumber(library.length, 1);
+      const oldIndex = card.libraryindex;
+      let existingCard = library.filter(x => x.libraryindex == newIndex)[0];
+      card.libraryindex = newIndex;
+      existingCard.libraryindex = oldIndex;
+      this.fireService.updateCard(card);
+      this.fireService.updateCard(existingCard);
+      // shuffleCount++;
+    });
+
+    this.reOrderLibrary(library);
+    return library;
+    // let counter = library.length;
+    // // While there are elements in the array
+    // while (counter > 0) {
+    //     // Pick a random index
+    //     const index = Math.floor(Math.random() * counter);
+    //     // Decrease counter by 1
+    //     counter--;
+    //     // And swap the last element with it
+    //     const temp = library[counter];
+    //     library[counter] = library[index];
+    //     library[index] = temp;
+    // }
+    // return library;
+  }
+
+  reOrderLibrary(library: any) {
+    library.sort(x=>x.libaryindex);
+  }
+
+  shuffleSelectedLibrary(libraryNumber: number) {
     let library: any[];
     if (libraryNumber === 1) {
-       library = this.getShuffleLibrary(this.libraryOneCards);
+       library = this.shuffleGivenLibrary(this.libraryOneCards);
     } else {
-       library = this.getShuffleLibrary(this.libraryTwoCards);
+       library = this.shuffleGivenLibrary(this.libraryTwoCards);
     }
-    library.forEach(x =>
-    this.fireService.updateCard(x)
+    library.forEach(card =>
+    this.fireService.updateCard(card)
     );
     this.addEvent('Player has shuffled library');
   }
