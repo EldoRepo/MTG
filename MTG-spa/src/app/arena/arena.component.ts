@@ -137,7 +137,11 @@ export class ArenaComponent implements OnInit {
       // if turn possession is an empty string assign a random player.
       this.fireService.updateGameInstanceTurnPossession(gameInstance.turn_possession);
       const selectedPlayer = this.players.filter(x => x.playerid === gameInstance.turn_possession)[0];
-      this.untapAndDrawCard(selectedPlayer.libraryid);
+      // this.untapAndDrawCard(selectedPlayer.libraryid);
+      this.shuffleSelectedLibrary(1);
+      this.shuffleSelectedLibrary(0);
+      this.drawHand(1);
+      this.drawHand(0);
     }
     this.gameInitialized = true;
   }
@@ -320,8 +324,13 @@ export class ArenaComponent implements OnInit {
     card.location = 1;
     this.fireService.updateCard(card);
   }
-  drawHand() {
-    const cardLibrary: any[] = this.libraryOneCards;
+  drawHand(libraryNumber: number) {
+    let cardLibrary: any[] = [];
+    if (libraryNumber === 1) {
+      cardLibrary = this.libraryOneCards;
+    } else {
+      cardLibrary = this.libraryTwoCards;
+    }
     const cardsDrawn = cardLibrary.slice(0, 7);
     cardsDrawn.forEach(x => x.location = 4);
     cardsDrawn.forEach(element => {
