@@ -30,13 +30,12 @@ export class ArenaComponent implements OnInit {
   // public cards: any[];
   dynamicCardWidth: string = '110px';
   justTappedTimer = false;
-  gameInitialized = false;
   timer: any;
   public allCards: any[];
   players: any[];
   opponentPlayer: any = {playerId: 'none'};
   currentPlayer: any = {playerId: 'none'};
-  gameInstance: any;
+  gameInstance: any = [];
   eventLogs: any[];
   firstInitialize = true;
   initCount = 0;
@@ -124,13 +123,26 @@ export class ArenaComponent implements OnInit {
       this.fireService.updateCard(element);
     });
   }
+  untapAndDrawCardLocal() {
+    // const currentTurnPlayerId = this.gameInstance.turn_possesion;
+    // const player = this.players.filter(x => x.playerid === currentTurnPlayerId)[0];
+    this.untapAndDrawCard(this.currentPlayer.libraryid);
+  }
   untapAndDrawCard(libraryid: string) {
     this.drawCardByLibrary(libraryid);
     this.untapLands(libraryid);
     this.addEvent('Player has drawed card');
   }
+  isGameInitialized(): boolean {
+    if(!this.gameInstance) return false;
+    if(this.gameInstance.turn_possession == "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
   initializeGame() {
-    if (this.gameInitialized === false) {
+    if (!this.isGameInitialized()) {
       const gameInstance = this.gameInstance;
       gameInstance.turn_possession = this.players[Math.floor(Math.random() * this.players.length)].playerid;
       // if turn possession is an empty string assign a random player.
@@ -139,10 +151,9 @@ export class ArenaComponent implements OnInit {
       this.untapAndDrawCard(selectedPlayer.libraryid);
       this.shuffleSelectedLibrary(1);
       this.shuffleSelectedLibrary(0);
-      // this.drawHand(1);
-      // this.drawHand(0);
+      this.drawHand(1);
+      this.drawHand(0);
     }
-    this.gameInitialized = true;
   }
   endTurn() {
     const currentTurnPlayerId = this.gameInstance.turn_possesion;
@@ -197,7 +208,9 @@ export class ArenaComponent implements OnInit {
         this.fireService.updateCard(x);
       }
     });
-    this.gameInitialized = false;
+    this.shuffleSelectedLibrary(1);
+    this.shuffleSelectedLibrary(0);
+    this.fireService.updateGameInstanceTurnPossession("");
   }
   rollDice() {
     this.fireService.rollDice();
@@ -360,6 +373,20 @@ export class ArenaComponent implements OnInit {
   addEvent(event: string) {
     console.log(event);
     this.fireService.addEvent(event);
+  }
+  getGraveYardImageURL(cardSet: number): string {
+    if (cardSet === 1) {
+      var topCard = this.discardOne[0];
+      if(topCard != null) {
+        return topCard.image;
+      }
+    } else {
+      var topCard = this.discardTwo[0];
+      if(topCard != null) {
+        return topCard.image;
+      }
+    }
+    return 'https://vignette.wikia.nocookie.net/nazizombiesplus/images/d/d5/Graveyard.png/revision/latest?cb=20110810192731';
   }
   viewCards(type: number, cardSet: number) {
     this.dialog.closeAll();

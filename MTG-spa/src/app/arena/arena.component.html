@@ -161,13 +161,13 @@
                 <mat-grid-tile [colspan]="1" [rowspan]="2" matRipple>
                     <div class="sansserif largeFontMTG" align="center">
                         <span style="color: white;" class="mediumFontMTG">Health</span> <br/>
-                        <mat-icon class="handCursor" color="primary" (click)="increaseLife(1)">add</mat-icon> <span style="color: white;">{{ currentPlayer?.life }}</span><mat-icon class="handCursor" color="warn" (click)="decreaseLife(1)">remove</mat-icon>
+                        <mat-icon class="handCursor" color="primary" (click)="increaseLife(1)">add</mat-icon> <span style="color: black;">{{ currentPlayer?.life }}</span><mat-icon class="handCursor" color="warn" (click)="decreaseLife(1)">remove</mat-icon>
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2" [rowspan]="2" matRipple>
                     <div class="sansserif largeFontMTG" align="center">
                         <span style="color: white;" class="mediumFontMTG">Player 2</span><br/>
-                        <mat-icon class="handCursor" color="primary" (click)="increaseLife(2)">add</mat-icon> <span style="color: white;">{{ opponentPlayer?.life }}</span><mat-icon class="handCursor" color="warn" (click)="decreaseLife(2)">remove</mat-icon>
+                        <mat-icon class="handCursor" color="primary" (click)="increaseLife(2)">add</mat-icon> <span style="color: black;">{{ opponentPlayer?.life }}</span><mat-icon class="handCursor" color="warn" (click)="decreaseLife(2)">remove</mat-icon>
                     </div>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2" >
@@ -199,17 +199,18 @@
                 </mat-grid-tile> -->
             
                 <mat-grid-tile [colspan]="2" [rowspan]="2">
-                    Turn {{ gameInstance?.turn_possesion }}
+                    <!-- Turn {{ gameInstance?.turn_possesion }} -->
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == currentPlayer?.playerid">Your Turn</span>
                     <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="gameInstance?.turn_possesion == opponentPlayer?.playerid">Player 2's Turn</span>
-                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!gameInitialized">Game Not Started</span>
+                    <span style="color: white;" class="sansserif mediumFontMTG" *ngIf="!isGameInitialized()">Game Not Started</span>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2">
-                    <span *ngIf="!gameInitialized">
+                    <span *ngIf="!isGameInitialized()">
                         <button mat-stroked-button color="primary" (click)="initializeGame()">Start Game</button>
                     </span>
-                    <span *ngIf="gameInitialized">
-                        <button [disabled]="!gameInstance?.turn_possesion == currentPlayer.playerid" mat-stroked-button color="primary" (click)="endTurn()">End Turn</button>
+                    <span *ngIf="isGameInitialized()">
+                        <!-- [disabled]="!(gameInstance?.turn_possesion == currentPlayer.playerid)" -->
+                        <button mat-stroked-button color="primary" (click)="endTurn()">End Turn</button>
                     </span>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="2"></mat-grid-tile>
@@ -224,7 +225,7 @@
                             <i style="color: white;" class="sansserif largeFontMTG">{{ libraryOneCards?.length }}</i>
                             <div class="libraryOneBtns" style="padding-top: 60px;" align="center">   
                                 <div style="padding: 20px;">
-                                    <button mat-raised-button (click)="drawCard()">
+                                    <button mat-raised-button (click)="untapAndDrawCardLocal()">
                                         <i class="material-icons"> flip_to_front</i>
                                     </button>
                                     <button mat-raised-button color="primary" [matMenuTriggerFor]="libraryOneMenu">
@@ -235,6 +236,7 @@
                             <mat-menu #libraryOneMenu="matMenu">
                                 <button mat-menu-item (click)="shuffleSelectedLibrary(1)">Shuffle Library</button>
                                 <button mat-menu-item (click)="viewCards(0, 1)">View Library</button>
+                                <button mat-menu-item (click)="drawCard()">Draw Card</button>
                             </mat-menu>
                         </div>
                     </div>
@@ -244,7 +246,9 @@
                     [cdkDropListConnectedTo]="[enchantmentsOneZone, handOneZone, libraryOneZone, landsOneZone, creaturesOneZone]" 
                     (cdkDropListDropped)="drop($event)" >
                         <!-- <h2>Graveyard</h2> -->
-                        <div [matMenuTriggerFor]="discardOneMenu" style="height:100%;
+                         <!-- [ngStyle]="{'background-image': 'url('"+ bgImageVariable + "')'}" -->
+                        <div [matMenuTriggerFor]="discardOneMenu"
+                            style="height:100%;
                             background-size: 100% 100%;
                             background-image:url('https://vignette.wikia.nocookie.net/nazizombiesplus/images/d/d5/Graveyard.png/revision/latest?cb=20110810192731');">
                             <mat-menu #discardOneMenu="matMenu">
