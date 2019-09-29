@@ -490,7 +490,6 @@ export class ArenaComponent implements OnInit {
     // }
     // return library;
   }
-
   reOrderLibrary(library: any) {
     library.sort(x=>x.libaryindex);
   }
